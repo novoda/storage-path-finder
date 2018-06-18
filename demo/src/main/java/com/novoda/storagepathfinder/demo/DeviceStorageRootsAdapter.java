@@ -14,10 +14,14 @@ class DeviceStorageRootsAdapter extends RecyclerView.Adapter<DeviceStorageRootVi
 
     private final LayoutInflater layoutInflater;
     private final List<DeviceStorageRoot> deviceStorageRoots;
+    private final DeviceStorageRootViewHolder.Listener onAddFileClicked;
 
-    DeviceStorageRootsAdapter(LayoutInflater layoutInflater, List<DeviceStorageRoot> deviceStorageRoots) {
+    DeviceStorageRootsAdapter(LayoutInflater layoutInflater,
+                              List<DeviceStorageRoot> deviceStorageRoots,
+                              DeviceStorageRootViewHolder.Listener onAddFileClicked) {
         this.layoutInflater = layoutInflater;
         this.deviceStorageRoots = deviceStorageRoots;
+        this.onAddFileClicked = onAddFileClicked;
         setHasStableIds(true);
     }
 
@@ -31,7 +35,7 @@ class DeviceStorageRootsAdapter extends RecyclerView.Adapter<DeviceStorageRootVi
     @Override
     public void onBindViewHolder(@NonNull DeviceStorageRootViewHolder holder, int position) {
         DeviceStorageRoot deviceStorageRoot = deviceStorageRoots.get(position);
-        holder.bind(deviceStorageRoot);
+        holder.bind(deviceStorageRoot, onAddFileClicked);
     }
 
     @Override

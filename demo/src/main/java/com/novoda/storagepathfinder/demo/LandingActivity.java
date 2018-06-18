@@ -42,7 +42,15 @@ public class LandingActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.device_storage_roots);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        DeviceStorageRootsAdapter deviceStorageRootsAdapter = new DeviceStorageRootsAdapter(getLayoutInflater(), deviceStorageRoots);
+        DeviceStorageRootsAdapter deviceStorageRootsAdapter = new DeviceStorageRootsAdapter(
+                getLayoutInflater(),
+                deviceStorageRoots,
+                onAddFileClicked
+        );
         recyclerView.setAdapter(deviceStorageRootsAdapter);
     }
+
+    private final DeviceStorageRootViewHolder.Listener onAddFileClicked = deviceStorageRoot -> {
+        // Add the file to that location.
+    };
 }
