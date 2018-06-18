@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="novoda.com.storage_path_finder">
+  package="com.novoda.storagepathfinder.demo">
 
   <application
     android:allowBackup="false"
@@ -11,7 +11,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
-    <activity android:name=".LandingActivity">
+    <activity android:name="com.novoda.storagepathfinder.demo.LandingActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
