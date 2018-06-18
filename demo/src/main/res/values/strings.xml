@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">storage-path-finder</string>
+  <string name="add_file">Add file</string>
 </resources>

@@ -2,6 +2,8 @@ package com.novoda.storagepathfinder.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.novoda.storagepathfinder.AndroidApplicationDirectories;
@@ -37,5 +39,10 @@ public class LandingActivity extends AppCompatActivity {
         Log.e(getClass().getSimpleName(), "storageRoots: " + deviceStorageRoots);
 
         Log.e(getClass().getSimpleName(), "internal file persistence base: " + getApplicationContext().getFilesDir().getAbsolutePath());
+
+        RecyclerView recyclerView = findViewById(R.id.device_storage_roots);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        DeviceStorageRootsAdapter deviceStorageRootsAdapter = new DeviceStorageRootsAdapter(getLayoutInflater(), deviceStorageRoots);
+        recyclerView.setAdapter(deviceStorageRootsAdapter);
     }
 }
