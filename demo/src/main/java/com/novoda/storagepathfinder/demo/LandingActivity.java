@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.novoda.storagepathfinder.AndroidApplicationDirectories;
 import com.novoda.storagepathfinder.AndroidDeviceFeatures;
@@ -18,6 +17,7 @@ import com.novoda.storagepathfinder.DeviceStorageRoot;
 import com.novoda.storagepathfinder.FileSystem;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class LandingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing);
 
         AssetManager assetManager = getApplicationContext().getAssets();
-        assetCloner = new AssetCloner(assetManager);
+        assetCloner = new AssetCloner(assetManager, Executors.newSingleThreadExecutor());
 
         CommonDirectories commonDirectories = new AndroidApplicationDirectories(getApplicationContext());
         FileSystem fileSystem = new AndroidFileSystem(commonDirectories);
@@ -44,9 +44,6 @@ public class LandingActivity extends AppCompatActivity {
                 androidSystem
         );
         List<DeviceStorageRoot> deviceStorageRoots = storageInspector.getDeviceStorageRoots();
-        Log.e(getClass().getSimpleName(), "storageRoots: " + deviceStorageRoots);
-
-        Log.e(getClass().getSimpleName(), "internal file persistence base: " + getApplicationContext().getFilesDir().getAbsolutePath());
 
         RecyclerView recyclerView = findViewById(R.id.device_storage_roots);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

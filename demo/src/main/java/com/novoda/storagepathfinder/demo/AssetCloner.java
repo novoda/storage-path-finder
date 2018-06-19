@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.Executor;
 
 class AssetCloner {
 
@@ -15,15 +16,19 @@ class AssetCloner {
     private static final byte[] BUFFER = new byte[BUFFER_SIZE];
 
     private final AssetManager assetManager;
+    private final Executor executor;
 
-    AssetCloner(AssetManager assetManager) {
+    AssetCloner(AssetManager assetManager, Executor executor) {
         this.assetManager = assetManager;
+        this.executor = executor;
     }
 
     public void cloneAsset(String assetName, String pathToCloneTo) {
-        File outputFile = new File(pathToCloneTo);
-        createFileIfDoesNotExist(outputFile);
-        copyAssetToFile(assetName, outputFile);
+        executor.execute(() -> {
+            File outputFile = new File(pathToCloneTo);
+            createFileIfDoesNotExist(outputFile);
+            copyAssetToFile(assetName, outputFile);
+        });
     }
 
     private void createFileIfDoesNotExist(File outputFile) {
