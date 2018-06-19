@@ -38,7 +38,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         return storageRoots;
     }
 
-    private File[] filterOutNullValuesFrom(File[] externalFilesDirs) {  // YES They return a list with null values in it...
+    private File[] filterOutNullValuesFrom(File... externalFilesDirs) {  // YES They return a list with null values in it...
         List<File> fileDirs = new ArrayList<>(externalFilesDirs.length);
         for (File externalFilesDir : externalFilesDirs) {
             if (externalFilesDir != null) {
@@ -49,8 +49,9 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         return fileDirs.toArray(dirs);
     }
 
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops") // This is a small loop and its what we want to do. Only going to ever have 1/2 created
-    private List<DeviceStorageRoot> extractSecondaryStorageRootsFrom(File[] fileDirectories) {
+    // This is a small loop and its what we want to do. Only going to ever have 1/2 created
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    private List<DeviceStorageRoot> extractSecondaryStorageRootsFrom(File... fileDirectories) {
         List<DeviceStorageRoot> storageRoots = new ArrayList<>();
         for (File file : fileDirectories) {
             String basePath = getDirectoryPathAboveTheAndroidFolderFrom(file);
