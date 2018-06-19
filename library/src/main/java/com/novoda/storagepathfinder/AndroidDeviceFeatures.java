@@ -4,7 +4,7 @@ import android.os.Build;
 
 public class AndroidDeviceFeatures implements DeviceFeatures {
 
-    public static final int PLATFORM_VERSION = Build.VERSION.SDK_INT;
+    private static final int PLATFORM_VERSION = Build.VERSION.SDK_INT;
 
     @Override
     public boolean canReportExternalFileDirectories() {

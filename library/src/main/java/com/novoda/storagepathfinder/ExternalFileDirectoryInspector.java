@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageInspector {
 
+    private static final String ANDROID_PATTERN = "/(Android)";
+
     private final Context context;
     private final DeviceFeatures deviceFeatures;
     private final String primaryStoragePath;
@@ -26,8 +28,8 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
 
     @Override
     public List<DeviceStorageRoot> getSecondaryDeviceStorageRoots() {
-        return deviceFeatures.canReportExternalFileDirectories() ?
-                checkExternalFileDirectoriesForRemovableStorage() : Collections.emptyList();
+        return deviceFeatures.canReportExternalFileDirectories()
+                ? checkExternalFileDirectoriesForRemovableStorage() : Collections.emptyList();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)    // NO LUCK API 16-18
@@ -38,7 +40,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         return storageRoots;
     }
 
-    private File[] filterOutNullValuesFrom(File[] externalFilesDirs) {  // YES They return a list with null values in it...
+    private File[] filterOutNullValuesFrom(File... externalFilesDirs) {  // YES They return a list with null values in it...
         List<File> fileDirs = new ArrayList<>(externalFilesDirs.length);
         for (File externalFilesDir : externalFilesDirs) {
             if (externalFilesDir != null) {
@@ -49,8 +51,9 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         return fileDirs.toArray(dirs);
     }
 
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops") // This is a small loop and its what we want to do. Only going to ever have 1/2 created
-    private List<DeviceStorageRoot> extractSecondaryStorageRootsFrom(File[] fileDirectories) {
+    // This is a small loop and its what we want to do. Only going to ever have 1/2 created
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    private List<DeviceStorageRoot> extractSecondaryStorageRootsFrom(File... fileDirectories) {
         List<DeviceStorageRoot> storageRoots = new ArrayList<>();
         for (File file : fileDirectories) {
             String basePath = getDirectoryPathAboveTheAndroidFolderFrom(file);
@@ -62,7 +65,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
     }
 
     private String getDirectoryPathAboveTheAndroidFolderFrom(File file) {
-        String path = file.getAbsolutePath().split("/.?Android/")[0];
+        String path = file.getAbsolutePath().split(ANDROID_PATTERN)[0];
         return path == null ? "" : path;
     }
 
