@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageInspector {
 
+    private static final String ANDROID_PATTERN = "/.?Android/";
+
     private final Context context;
     private final DeviceFeatures deviceFeatures;
     private final String primaryStoragePath;
@@ -63,7 +65,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
     }
 
     private String getDirectoryPathAboveTheAndroidFolderFrom(File file) {
-        String path = file.getAbsolutePath().split("/.?Android/")[0];
+        String path = file.getAbsolutePath().split(ANDROID_PATTERN)[0];
         return path == null ? "" : path;
     }
 
