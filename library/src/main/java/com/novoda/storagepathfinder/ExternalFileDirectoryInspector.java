@@ -28,8 +28,8 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
 
     @Override
     public List<DeviceStorageRoot> getSecondaryDeviceStorageRoots() {
-        return deviceFeatures.canReportExternalFileDirectories() ?
-                checkExternalFileDirectoriesForRemovableStorage() : Collections.emptyList();
+        return deviceFeatures.canReportExternalFileDirectories()
+                ? checkExternalFileDirectoriesForRemovableStorage() : Collections.emptyList();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)    // NO LUCK API 16-18
