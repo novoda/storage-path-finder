@@ -19,7 +19,7 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
     public List<DeviceStorageRoot> getSecondaryDeviceStorageRoots() {
         ArrayList<DeviceStorageRoot> secondaryStorageRoot = new ArrayList<>(1);
         if (secondaryStoragePath != null) {
-            secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath, DeviceStorageRoot.Type.SECONDARY));
+            secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath));
         }
         return secondaryStorageRoot;
     }

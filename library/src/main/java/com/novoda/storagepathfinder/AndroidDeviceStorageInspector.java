@@ -36,51 +36,50 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
     }
 
     @Override
-    public List<DeviceStorageRoot> getDeviceStorageRoots() {
-        List<DeviceStorageRoot> storageRoots = new ArrayList<>(2);
-
-        String primaryStoragePath = getPrimaryStoragePath();
-        String basePath = getDirectoryPathAboveTheAndroidFolderFrom(primaryStoragePath);
-        DeviceStorageRoot primaryStorageRoot = new DeviceStorageRoot(basePath, getPrimaryStoragePath(), DeviceStorageRoot.Type.PRIMARY);
-        storageRoots.add(primaryStorageRoot);
-
-        Set<DeviceStorageRoot> secondaryStorageRoots = findActiveSecondaryStorageRoots();
-        storageRoots.addAll(secondaryStorageRoots);
-
-        return Collections.unmodifiableList(storageRoots);
-    }
-
-    private void getPrimaryRoot() {
-        String primaryStoragePath = getPrimaryStoragePath();
-        String basePath = getDirectoryPathAboveTheAndroidFolderFrom(primaryStoragePath);
-        DeviceStorageRoot primaryStorageRoot = new DeviceStorageRoot(basePath, getPrimaryStoragePath(), DeviceStorageRoot.Type.PRIMARY);
-    }
-
-    private void getSecondaryRoot() {
-
-    }
-
-    @Override
     public StoragePath getPrimaryStorageBasePath() {
-        getPrimaryRoot();
-        // An object, you can get THE path, type, and in different formats
-        return null;
-    }
-
-    @Override
-    public StoragePath getSecondaryStorageBasePath() {
-        getSecondaryRoot();
-        return null;
+        DeviceStorageRoot primaryRoot = getPrimaryRoot();
+        String basePath = primaryRoot.getBasePath();
+        return DeviceStoragePath.create(basePath, StoragePath.Type.PRIMARY);
     }
 
     @Override
     public StoragePath getPrimaryStorageApplicationPath() {
-        return null;
+        DeviceStorageRoot primaryRoot = getPrimaryRoot();
+        String applicationPath = primaryRoot.getApplicationPath();
+        return DeviceStoragePath.create(applicationPath, StoragePath.Type.PRIMARY);
+    }
+
+    private DeviceStorageRoot getPrimaryRoot() {
+        String primaryStoragePath = getPrimaryStoragePath();
+        String basePath = getDirectoryPathAboveTheAndroidFolderFrom(primaryStoragePath);
+        return new DeviceStorageRoot(basePath, getPrimaryStoragePath());
     }
 
     @Override
-    public StoragePath getSecondaryStorageApplicationPath() {
-        return null;
+    public List<StoragePath> getSecondaryStorageBasePath() {
+        List<StoragePath> secondaryStoragePaths = new ArrayList<>(1);
+        List<DeviceStorageRoot> secondaryRoots = getSecondaryRoots();
+        for (DeviceStorageRoot secondaryRoot : secondaryRoots) {
+            secondaryStoragePaths.add(DeviceStoragePath.create(secondaryRoot.getBasePath(), StoragePath.Type.SECONDARY));
+        }
+        return Collections.unmodifiableList(secondaryStoragePaths);
+    }
+
+    @Override
+    public List<StoragePath> getSecondaryStorageApplicationPath() {
+        List<StoragePath> secondaryStoragePaths = new ArrayList<>(1);
+        List<DeviceStorageRoot> secondaryRoots = getSecondaryRoots();
+        for (DeviceStorageRoot secondaryRoot : secondaryRoots) {
+            secondaryStoragePaths.add(DeviceStoragePath.create(secondaryRoot.getApplicationPath(), StoragePath.Type.SECONDARY));
+        }
+        return Collections.unmodifiableList(secondaryStoragePaths);
+    }
+
+    private List<DeviceStorageRoot> getSecondaryRoots() {
+        List<DeviceStorageRoot> storageRoots = new ArrayList<>(2);
+        Set<DeviceStorageRoot> secondaryStorageRoots = findActiveSecondaryStorageRoots();
+        storageRoots.addAll(secondaryStorageRoots);
+        return Collections.unmodifiableList(storageRoots);
     }
 
     // getExternalStorageDirectory() is the Internal External   (NOT SD CARD)
@@ -108,7 +107,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
     private Set<DeviceStorageRoot> filterToOnlyRootsThatExist(Set<DeviceStorageRoot> allRoots) {
         Set<DeviceStorageRoot> filteredRoots = new HashSet<>();
         for (DeviceStorageRoot root : allRoots) {
-            if (fileSystem.exists(root.asFile())) {
+            if (fileSystem.exists(root.basePathAsFile())) {
                 filteredRoots.add(root);
             }
         }

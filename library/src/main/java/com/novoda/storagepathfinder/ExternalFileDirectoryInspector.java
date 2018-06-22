@@ -58,7 +58,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         for (File file : fileDirectories) {
             String basePath = getDirectoryPathAboveTheAndroidFolderFrom(file);
             if (isValidPathForSecondaryStorage(basePath)) {
-                storageRoots.add(new DeviceStorageRoot(basePath, file.getAbsolutePath(), DeviceStorageRoot.Type.SECONDARY));
+                storageRoots.add(new DeviceStorageRoot(basePath, file.getAbsolutePath()));
             }
         }
         return storageRoots;

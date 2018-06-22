@@ -18,7 +18,7 @@ class DeviceStorageRootViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(DeviceStorageRoot deviceStorageRoot, Listener listener) {
-        absolutePath.setText(deviceStorageRoot.getAbsolutePath());
+        absolutePath.setText(deviceStorageRoot.getApplicationPath());
         addFile.setOnClickListener(v -> listener.onAddFileClickedFor(deviceStorageRoot));
     }
 
