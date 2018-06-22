@@ -12,7 +12,7 @@ public interface StoragePath {
 
     enum Type {
         PRIMARY,
-        SECONDARY;
+        SECONDARY
     }
 
 }

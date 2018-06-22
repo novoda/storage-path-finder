@@ -21,21 +21,6 @@ public class AndroidApplicationDirectories implements CommonDirectories {
     }
 
     @Override
-    public boolean isPrimaryStorageRemovable() {
-        return Environment.isExternalStorageRemovable();
-    }
-
-    @Override
-    public boolean isPrimaryStorageMounted() {
-        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-    }
-
-    @Override
-    public File getDataDirectory() {
-        return Environment.getDataDirectory();
-    }
-
-    @Override
     public File getExternalStorageDirectoryApplicationPath() {
         return ContextCompat.getExternalFilesDirs(context, null)[0];
     }

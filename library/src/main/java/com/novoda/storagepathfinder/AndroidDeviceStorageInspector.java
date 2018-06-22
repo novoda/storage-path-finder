@@ -33,8 +33,8 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
         primaryStorageInspector = new ExternalDirectoryPrimaryStorageInspector(commonDirectories);
 
         StoragePath primaryBasePath = primaryStorageInspector.getPrimaryDeviceStorageBasePath();
-        secondaryStorageInspectors.add(new ExternalFileDirectoryInspector(context, deviceFeatures, primaryBasePath.asString()));
         secondaryStorageInspectors.add(new EnvironmentVariableStorageInspector(androidSystem));
+        secondaryStorageInspectors.add(new ExternalFileDirectoryInspector(context, deviceFeatures, primaryBasePath.asString()));
     }
 
     @Override
@@ -77,10 +77,10 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
     }
 
     private Set<StoragePath> findActiveSecondaryStorageApplicationPaths() {
-        return filterToOnlyRootsThatExist(findAllSecondaryStorageApplicaitonPaths());
+        return filterToOnlyRootsThatExist(findAllSecondaryStorageApplicationPaths());
     }
 
-    private Set<StoragePath> findAllSecondaryStorageApplicaitonPaths() {
+    private Set<StoragePath> findAllSecondaryStorageApplicationPaths() {
         Set<StoragePath> paths = new TreeSet<>(withStorageRootPathComparator());
         for (SecondaryDeviceStorageInspector inspector : secondaryStorageInspectors) {
             paths.addAll(inspector.getSecondaryDeviceStorageApplicationPaths());
