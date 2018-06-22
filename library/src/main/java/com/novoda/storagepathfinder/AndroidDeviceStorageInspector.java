@@ -84,7 +84,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
 
     // getExternalStorageDirectory() is the Internal External   (NOT SD CARD)
     private String getPrimaryStoragePath() {
-        return fileSystem.getCommonDirectories().getExternalStorageDirectory().getPath();
+        return fileSystem.getCommonDirectories().getExternalStorageDirectoryApplicationPath().getPath();
     }
 
     private String getDirectoryPathAboveTheAndroidFolderFrom(String path) {

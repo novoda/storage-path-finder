@@ -10,5 +10,7 @@ public interface CommonDirectories {
 
     File getDataDirectory();
 
-    File getExternalStorageDirectory();
+    File getExternalStorageDirectoryApplicationPath();
+
+    File getExternalStorageDirectoryBasePath();
 }

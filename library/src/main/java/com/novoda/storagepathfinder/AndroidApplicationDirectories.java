@@ -36,7 +36,12 @@ public class AndroidApplicationDirectories implements CommonDirectories {
     }
 
     @Override
-    public File getExternalStorageDirectory() {
+    public File getExternalStorageDirectoryApplicationPath() {
         return ContextCompat.getExternalFilesDirs(context, null)[0];
+    }
+
+    @Override
+    public File getExternalStorageDirectoryBasePath() {
+        return Environment.getExternalStorageDirectory();
     }
 }
