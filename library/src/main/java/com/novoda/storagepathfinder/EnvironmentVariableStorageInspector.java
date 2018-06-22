@@ -16,34 +16,8 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
         secondaryStoragePath = system.getEnv("SECONDARY_STORAGE");   // NOT ALL MANUFACTURERS SET THIS....  Also it can be null :(
     }
 
-    // TODO: Not sure what to do about this now that we have base and absolute path.
     @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageRoots() {
-        ArrayList<DeviceStorageRoot> secondaryStorageRoot = new ArrayList<>(1);
-        if (secondaryStoragePath != null) {
-            secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath));
-        }
-        return secondaryStorageRoot;
-    }
-
-    @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageBasePaths() {
-        ArrayList<DeviceStorageRoot> secondaryStorageRoot = new ArrayList<>(1);
-        if (secondaryStoragePath != null) {
-            secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath));
-        }
-        return secondaryStorageRoot;
-    }
-
-    @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageApplicationPaths() {
-        return Collections.emptyList();
-    }
-
-
-
-    @Override
-    public List<StoragePath> getSecondaryDeviceStorageBasePathsss() {
+    public List<StoragePath> getSecondaryDeviceStorageBasePaths() {
         List<StoragePath> secondaryStorageRoot = new ArrayList<>(1);
         if (secondaryStoragePath != null) {
             secondaryStorageRoot.add(DeviceStoragePath.create(secondaryStoragePath, SECONDARY));
@@ -52,7 +26,7 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
     }
 
     @Override
-    public List<StoragePath> getSecondaryDeviceStorageApplicationPathsss() {
+    public List<StoragePath> getSecondaryDeviceStorageApplicationPaths() {
         return Collections.emptyList();
     }
 

@@ -50,57 +50,57 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
 
     @Override
     public List<StoragePath> getSecondaryStorageBasePath() {
-        List<StoragePath> secondaryStoragePaths = new ArrayList<>(1);
-        List<DeviceStorageRoot> secondaryRoots = getSecondaryRoots();
-        for (DeviceStorageRoot secondaryRoot : secondaryRoots) {
-            secondaryStoragePaths.add(DeviceStoragePath.create(secondaryRoot.getBasePath(), StoragePath.Type.SECONDARY));
-        }
-        return Collections.unmodifiableList(secondaryStoragePaths);
-    }
-
-    @Override
-    public List<StoragePath> getSecondaryStorageApplicationPath() {
-        List<StoragePath> secondaryStoragePaths = new ArrayList<>(1);
-        List<DeviceStorageRoot> secondaryRoots = getSecondaryRoots();
-        for (DeviceStorageRoot secondaryRoot : secondaryRoots) {
-            secondaryStoragePaths.add(DeviceStoragePath.create(secondaryRoot.getApplicationPath(), StoragePath.Type.SECONDARY));
-        }
-        return Collections.unmodifiableList(secondaryStoragePaths);
-    }
-
-    private List<DeviceStorageRoot> getSecondaryRoots() {
-        List<DeviceStorageRoot> storageRoots = new ArrayList<>(2);
-        Set<DeviceStorageRoot> secondaryStorageRoots = findActiveSecondaryStorageRoots();
+        List<StoragePath> storageRoots = new ArrayList<>(2);
+        Set<StoragePath> secondaryStorageRoots = findActiveSecondaryStorageBasePaths();
         storageRoots.addAll(secondaryStorageRoots);
         return Collections.unmodifiableList(storageRoots);
     }
 
-    // TODO all below needs to be considered of where it belongs?
-    private Set<DeviceStorageRoot> findActiveSecondaryStorageRoots() {
-        return filterToOnlyRootsThatExist(findAllSecondaryStorageRoots());
+    @Override
+    public List<StoragePath> getSecondaryStorageApplicationPath() {
+        List<StoragePath> storageRoots = new ArrayList<>(2);
+        Set<StoragePath> secondaryStorageRoots = findActiveSecondaryStorageApplicationPaths();
+        storageRoots.addAll(secondaryStorageRoots);
+        return Collections.unmodifiableList(storageRoots);
     }
 
-    private Set<DeviceStorageRoot> findAllSecondaryStorageRoots() {
-        Set<DeviceStorageRoot> roots = new TreeSet<>(withStorageRootPathComparator());
+    private Set<StoragePath> findActiveSecondaryStorageBasePaths() {
+        return filterToOnlyRootsThatExist(findAllSecondaryStorageBasePaths());
+    }
+
+    private Set<StoragePath> findAllSecondaryStorageBasePaths() {
+        Set<StoragePath> paths = new TreeSet<>(withStorageRootPathComparator());
         for (SecondaryDeviceStorageInspector inspector : secondaryStorageInspectors) {
-            roots.addAll(inspector.getSecondaryDeviceStorageRoots());
+            paths.addAll(inspector.getSecondaryDeviceStorageBasePaths());
         }
-        return roots;
+        return paths;
     }
 
-    private Set<DeviceStorageRoot> filterToOnlyRootsThatExist(Set<DeviceStorageRoot> allRoots) {
-        Set<DeviceStorageRoot> filteredRoots = new HashSet<>();
-        for (DeviceStorageRoot root : allRoots) {
-            if (fileSystem.exists(root.basePathAsFile())) {
-                filteredRoots.add(root);
+    private Set<StoragePath> findActiveSecondaryStorageApplicationPaths() {
+        return filterToOnlyRootsThatExist(findAllSecondaryStorageApplicaitonPaths());
+    }
+
+    private Set<StoragePath> findAllSecondaryStorageApplicaitonPaths() {
+        Set<StoragePath> paths = new TreeSet<>(withStorageRootPathComparator());
+        for (SecondaryDeviceStorageInspector inspector : secondaryStorageInspectors) {
+            paths.addAll(inspector.getSecondaryDeviceStorageApplicationPaths());
+        }
+        return paths;
+    }
+
+    private Set<StoragePath> filterToOnlyRootsThatExist(Set<StoragePath> allPaths) {
+        Set<StoragePath> filteredPaths = new HashSet<>();
+        for (StoragePath path : allPaths) {
+            if (fileSystem.exists(path.asFile())) {
+                filteredPaths.add(path);
             }
         }
-        return filteredRoots;
+        return filteredPaths;
     }
 
-    private Comparator<DeviceStorageRoot> withStorageRootPathComparator() {
+    private Comparator<StoragePath> withStorageRootPathComparator() {
         return (lhs, rhs) -> {
-            if (lhs.getBasePath().equals(rhs.getBasePath())) {
+            if (lhs.asString().equals(rhs.asString())) {
                 return 0;
             }
             return lhs.hashCode() - rhs.hashCode();

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageInspector {
 
+    private static final StoragePath.Type SECONDARY = StoragePath.Type.SECONDARY;
     private static final String ANDROID_PATTERN = "/(Android)";
 
     public enum Filter {   // TODO kill this soon
@@ -32,36 +33,21 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
     }
 
     @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageRoots() {
+    public List<StoragePath> getSecondaryDeviceStorageBasePaths() {
         return deviceFeatures.canReportExternalFileDirectories()
                 ? checkExternalFileDirectoriesForRemovableStorage(Filter.BASE) : Collections.emptyList();
     }
 
     @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageBasePaths() {
+    public List<StoragePath> getSecondaryDeviceStorageApplicationPaths() {
         return deviceFeatures.canReportExternalFileDirectories()
-                ? checkExternalFileDirectoriesForRemovableStorage(Filter.BASE) : Collections.emptyList();
-    }
-
-    @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageApplicationPaths() {
-        return null;
-    }
-
-    @Override
-    public List<StoragePath> getSecondaryDeviceStorageBasePathsss() {
-        return null;
-    }
-
-    @Override
-    public List<StoragePath> getSecondaryDeviceStorageApplicationPathsss() {
-        return null;
+                ? checkExternalFileDirectoriesForRemovableStorage(Filter.APPLICATION) : Collections.emptyList();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)    // NO LUCK API 16-18
-    private List<DeviceStorageRoot> checkExternalFileDirectoriesForRemovableStorage(Filter base) {
+    private List<StoragePath> checkExternalFileDirectoriesForRemovableStorage(Filter base) {
         File[] externalFileDirectories = filterOutNullValuesFrom(context.getExternalFilesDirs(null));
-        List<DeviceStorageRoot> storageRoots = new ArrayList<>();
+        List<StoragePath> storageRoots = new ArrayList<>();
         storageRoots.addAll(extractSecondaryStorageRootsFrom(base, externalFileDirectories));
         return storageRoots;
     }
@@ -79,8 +65,8 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
 
     // This is a small loop and its what we want to do. Only going to ever have 1/2 created
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private List<DeviceStorageRoot> extractSecondaryStorageRootsFrom(Filter base, File... fileDirectories) {
-        List<DeviceStorageRoot> storageRoots = new ArrayList<>();
+    private List<StoragePath> extractSecondaryStorageRootsFrom(Filter base, File... fileDirectories) {
+        List<StoragePath> storageRoots = new ArrayList<>();
         for (File file : fileDirectories) {
             // TODO I don't want this Filter.TYPE thing, but its the fastest way to split the logic for now. More refactoring later
             String path = "";
@@ -91,7 +77,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
                 path = file.getAbsolutePath();
             }
             if (isValidPathForSecondaryStorage(path)) {
-                storageRoots.add(new DeviceStorageRoot(path, file.getAbsolutePath()));
+                storageRoots.add(DeviceStoragePath.create(path, SECONDARY));
             }
         }
         return storageRoots;
