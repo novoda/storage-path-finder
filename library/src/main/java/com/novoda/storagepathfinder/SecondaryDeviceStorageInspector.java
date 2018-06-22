@@ -6,4 +6,10 @@ public interface SecondaryDeviceStorageInspector {
 
     List<DeviceStorageRoot> getSecondaryDeviceStorageRoots();
 
+    List<DeviceStorageRoot> getSecondaryDeviceStorageBasePaths();
+    List<DeviceStorageRoot> getSecondaryDeviceStorageApplicationPaths();
+
+    List<StoragePath> getSecondaryDeviceStorageBasePathsss();
+    List<StoragePath> getSecondaryDeviceStorageApplicationPathsss();
+
 }

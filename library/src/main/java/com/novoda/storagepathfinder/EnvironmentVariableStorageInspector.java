@@ -3,10 +3,12 @@ package com.novoda.storagepathfinder;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EnvironmentVariableStorageInspector implements SecondaryDeviceStorageInspector {
 
+    private static final StoragePath.Type SECONDARY = StoragePath.Type.SECONDARY;
     @Nullable
     private final String secondaryStoragePath;
 
@@ -22,6 +24,36 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
             secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath));
         }
         return secondaryStorageRoot;
+    }
+
+    @Override
+    public List<DeviceStorageRoot> getSecondaryDeviceStorageBasePaths() {
+        ArrayList<DeviceStorageRoot> secondaryStorageRoot = new ArrayList<>(1);
+        if (secondaryStoragePath != null) {
+            secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath));
+        }
+        return secondaryStorageRoot;
+    }
+
+    @Override
+    public List<DeviceStorageRoot> getSecondaryDeviceStorageApplicationPaths() {
+        return Collections.emptyList();
+    }
+
+
+
+    @Override
+    public List<StoragePath> getSecondaryDeviceStorageBasePathsss() {
+        List<StoragePath> secondaryStorageRoot = new ArrayList<>(1);
+        if (secondaryStoragePath != null) {
+            secondaryStorageRoot.add(DeviceStoragePath.create(secondaryStoragePath, SECONDARY));
+        }
+        return secondaryStorageRoot;
+    }
+
+    @Override
+    public List<StoragePath> getSecondaryDeviceStorageApplicationPathsss() {
+        return Collections.emptyList();
     }
 
 }

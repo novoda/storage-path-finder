@@ -18,6 +18,7 @@ import java.util.TreeSet;
  */
 public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
 
+    private final PrimaryDeviceStorageInspector primaryStorageInspector;
     private final List<SecondaryDeviceStorageInspector> secondaryStorageInspectors = new ArrayList<>();
     private final FileSystem fileSystem;
 
@@ -28,31 +29,23 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
             AndroidSystem androidSystem
     ) {
         this.fileSystem = fileSystem;
-        String primaryStoragePath = getPrimaryStoragePath();
-        String basePath = getDirectoryPathAboveTheAndroidFolderFrom(primaryStoragePath);    // TODO: try to remove the duplicated code.
+        CommonDirectories commonDirectories = fileSystem.getCommonDirectories();
+        primaryStorageInspector = new ExternalDirectoryPrimaryStorageInspector(commonDirectories);
 
-        secondaryStorageInspectors.add(new ExternalFileDirectoryInspector(context, deviceFeatures, basePath));
+        StoragePath primaryBasePath = primaryStorageInspector.getPrimaryDeviceStorageBasePath();
+        secondaryStorageInspectors.add(new ExternalFileDirectoryInspector(context, deviceFeatures, primaryBasePath.asString()));
         secondaryStorageInspectors.add(new EnvironmentVariableStorageInspector(androidSystem));
     }
 
     @Override
     public StoragePath getPrimaryStorageBasePath() {
-        DeviceStorageRoot primaryRoot = getPrimaryRoot();
-        String basePath = primaryRoot.getBasePath();
-        return DeviceStoragePath.create(basePath, StoragePath.Type.PRIMARY);
+        return primaryStorageInspector.getPrimaryDeviceStorageBasePath();
+
     }
 
     @Override
     public StoragePath getPrimaryStorageApplicationPath() {
-        DeviceStorageRoot primaryRoot = getPrimaryRoot();
-        String applicationPath = primaryRoot.getApplicationPath();
-        return DeviceStoragePath.create(applicationPath, StoragePath.Type.PRIMARY);
-    }
-
-    private DeviceStorageRoot getPrimaryRoot() {
-        String primaryStoragePath = getPrimaryStoragePath();
-        String basePath = getDirectoryPathAboveTheAndroidFolderFrom(primaryStoragePath);
-        return new DeviceStorageRoot(basePath, getPrimaryStoragePath());
+        return primaryStorageInspector.getPrimaryDeviceStorageApplicationPath();
     }
 
     @Override
@@ -82,16 +75,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
         return Collections.unmodifiableList(storageRoots);
     }
 
-    // getExternalStorageDirectory() is the Internal External   (NOT SD CARD)
-    private String getPrimaryStoragePath() {
-        return fileSystem.getCommonDirectories().getExternalStorageDirectoryApplicationPath().getPath();
-    }
-
-    private String getDirectoryPathAboveTheAndroidFolderFrom(String path) {
-        String basePath = path.split("/.?Android/")[0];
-        return basePath == null ? "" : basePath;
-    }
-
+    // TODO all below needs to be considered of where it belongs?
     private Set<DeviceStorageRoot> findActiveSecondaryStorageRoots() {
         return filterToOnlyRootsThatExist(findAllSecondaryStorageRoots());
     }
