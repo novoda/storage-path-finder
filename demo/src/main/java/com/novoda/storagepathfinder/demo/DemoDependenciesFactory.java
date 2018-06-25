@@ -3,7 +3,7 @@ package com.novoda.storagepathfinder.demo;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import com.novoda.storagepathfinder.AndroidApplicationDirectories;
+import com.novoda.storagepathfinder.AndroidCommonDirectories;
 import com.novoda.storagepathfinder.AndroidDeviceFeatures;
 import com.novoda.storagepathfinder.AndroidDeviceStorageInspector;
 import com.novoda.storagepathfinder.AndroidFileSystem;
@@ -26,7 +26,7 @@ public final class DemoDependenciesFactory {
     }
 
     public static AndroidDeviceStorageInspector createStorageInspector(Context context) {
-        CommonDirectories commonDirectories = new AndroidApplicationDirectories(context.getApplicationContext());
+        CommonDirectories commonDirectories = new AndroidCommonDirectories(context.getApplicationContext());
         FileSystem fileSystem = new AndroidFileSystem(commonDirectories);
         DeviceFeatures deviceFeatures = new AndroidDeviceFeatures();
         AndroidSystem androidSystem = new AndroidSystem();

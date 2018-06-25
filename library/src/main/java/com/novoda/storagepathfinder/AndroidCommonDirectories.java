@@ -12,11 +12,11 @@ import java.io.File;
  * <p>
  * Also interface is a must, as the `Enviroment.` static calls are not to be called in tests.
  */
-public class AndroidApplicationDirectories implements CommonDirectories {
+public class AndroidCommonDirectories implements CommonDirectories {
 
     private final Context context;
 
-    public AndroidApplicationDirectories(Context context) {
+    public AndroidCommonDirectories(Context context) {
         this.context = context;
     }
 
