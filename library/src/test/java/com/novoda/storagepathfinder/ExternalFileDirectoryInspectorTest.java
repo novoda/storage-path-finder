@@ -74,7 +74,7 @@ public class ExternalFileDirectoryInspectorTest {
     private void givenExternalFileDirectoriesWillReturnPaths(StoragePath... storagePaths) {
         File[] files = new File[storagePaths.length];
         for (int i = 0; i < files.length; i++) {
-            files[i] = storagePaths[i].asFile();
+            files[i] = storagePaths[i].getPathAsFile();
         }
         given(context.getExternalFilesDirs(null)).willReturn(files);
     }

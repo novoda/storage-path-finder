@@ -16,7 +16,7 @@ public class EnvironmentVariableStorageInspectorTest {
 
     @Test
     public void returnsSecondaryDeviceStorageBasePathsWhenEnvironmentVariableIsAvailable() {
-        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.asString());
+        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.getPathAsString());
 
         List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageBasePaths();
 
@@ -34,7 +34,7 @@ public class EnvironmentVariableStorageInspectorTest {
 
     @Test
     public void returnsNoSecondaryStorageApplicationPathsWhenEnvironmentVariableIsAvailable() {
-        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.asString());
+        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.getPathAsString());
 
         List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageApplicationPaths();
 

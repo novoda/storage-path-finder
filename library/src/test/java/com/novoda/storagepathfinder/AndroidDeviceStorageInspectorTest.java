@@ -33,12 +33,12 @@ public class AndroidDeviceStorageInspectorTest {
     private CommonDirectories commonDirectories = new CommonDirectories() {
         @Override
         public File getExternalStorageDirectoryBasePath() {
-            return PRIMARY_BASE_PATH.asFile();
+            return PRIMARY_BASE_PATH.getPathAsFile();
         }
 
         @Override
         public File getExternalStorageDirectoryApplicationPath() {
-            return PRIMARY_APPLICATION_PATH.asFile();
+            return PRIMARY_APPLICATION_PATH.getPathAsFile();
         }
     };
 
@@ -47,7 +47,7 @@ public class AndroidDeviceStorageInspectorTest {
     @Before
     public void setup() {
         given(filesystem.getCommonDirectories()).willReturn(commonDirectories);
-        given(androidSystem.getEnv(anyString())).willReturn(SECONDARY_BASE_PATH_1.asString());
+        given(androidSystem.getEnv(anyString())).willReturn(SECONDARY_BASE_PATH_1.getPathAsString());
 
         storageInspector = new AndroidDeviceStorageInspector(context, filesystem, devicesFeatures, androidSystem);
     }
@@ -127,7 +127,7 @@ public class AndroidDeviceStorageInspectorTest {
     private void givenExternalFileDirectoriesWillReturnPaths(StoragePath... storagePaths) {
         File[] files = new File[storagePaths.length];
         for (int i = 0; i < files.length; i++) {
-            files[i] = storagePaths[i].asFile();
+            files[i] = storagePaths[i].getPathAsFile();
         }
         given(context.getExternalFilesDirs(null)).willReturn(files);
     }
@@ -137,7 +137,7 @@ public class AndroidDeviceStorageInspectorTest {
     }
 
     private void givenFileSystemHasPath(StoragePath storagePath) {
-        given(filesystem.exists(storagePath.asFile())).willReturn(true);
+        given(filesystem.exists(storagePath.getPathAsFile())).willReturn(true);
     }
 
 }

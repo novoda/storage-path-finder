@@ -25,12 +25,12 @@ class DeviceStoragePath implements StoragePath {
     }
 
     @Override
-    public String asString() {
+    public String getPathAsString() {
         return path;
     }
 
     @Override
-    public File asFile() {
+    public File getPathAsFile() {
         return new File(path);
     }
 

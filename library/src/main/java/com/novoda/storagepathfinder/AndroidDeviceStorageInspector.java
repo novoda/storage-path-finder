@@ -34,7 +34,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
 
         StoragePath primaryBasePath = primaryStorageInspector.getPrimaryDeviceStorageBasePath();
         secondaryStorageInspectors.add(new EnvironmentVariableStorageInspector(androidSystem));
-        secondaryStorageInspectors.add(new ExternalFileDirectoryInspector(context, deviceFeatures, primaryBasePath.asString()));
+        secondaryStorageInspectors.add(new ExternalFileDirectoryInspector(context, deviceFeatures, primaryBasePath.getPathAsString()));
     }
 
     @Override
@@ -87,7 +87,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
     private Set<StoragePath> filterToOnlyRootsThatExist(Set<StoragePath> allPaths) {
         Set<StoragePath> filteredPaths = new HashSet<>();
         for (StoragePath path : allPaths) {
-            if (fileSystem.exists(path.asFile())) {
+            if (fileSystem.exists(path.getPathAsFile())) {
                 filteredPaths.add(path);
             }
         }
@@ -96,7 +96,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
 
     private Comparator<StoragePath> withStorageRootPathComparator() {
         return (lhs, rhs) -> {
-            if (lhs.asString().equals(rhs.asString())) {
+            if (lhs.getPathAsString().equals(rhs.getPathAsString())) {
                 return 0;
             }
             return lhs.hashCode() - rhs.hashCode();

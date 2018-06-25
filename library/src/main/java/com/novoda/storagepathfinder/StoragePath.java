@@ -4,9 +4,9 @@ import java.io.File;
 
 public interface StoragePath {
 
-    String asString();
+    String getPathAsString();
 
-    File asFile();
+    File getPathAsFile();
 
     Type getType();
 
