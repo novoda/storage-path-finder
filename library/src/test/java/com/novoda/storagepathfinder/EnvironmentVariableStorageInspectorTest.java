@@ -15,7 +15,7 @@ public class EnvironmentVariableStorageInspectorTest {
     private static final String NO_SECONDARY_STORAGE_PATH = null;
 
     @Test
-    public void returnsSecondaryDeviceStorageBasePathsWhenEnvironmentVariableIsAvailable() {
+    public void returnsSecondaryDeviceStorageBasePaths_whenEnvironmentVariableIsAvailable() {
         EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.getPathAsString());
 
         List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageBasePaths();
@@ -24,7 +24,7 @@ public class EnvironmentVariableStorageInspectorTest {
     }
 
     @Test
-    public void returnsNoSecondaryDeviceStorageBasePathsWhenEnvironmentVariableIsNotAvailable() {
+    public void returnsNoSecondaryDeviceStorageBasePaths_whenEnvironmentVariableIsNotAvailable() {
         EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(NO_SECONDARY_STORAGE_PATH);
 
         List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageBasePaths();
@@ -33,7 +33,7 @@ public class EnvironmentVariableStorageInspectorTest {
     }
 
     @Test
-    public void returnsNoSecondaryStorageApplicationPathsWhenEnvironmentVariableIsAvailable() {
+    public void returnsNoSecondaryStorageApplicationPaths_whenEnvironmentVariableIsAvailable() {
         EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.getPathAsString());
 
         List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageApplicationPaths();
@@ -42,7 +42,7 @@ public class EnvironmentVariableStorageInspectorTest {
     }
 
     @Test
-    public void returnsNoSecondaryStorageApplicationPathsWhenEnvironmentVariableIsNotAvailable() {
+    public void returnsNoSecondaryStorageApplicationPaths_whenEnvironmentVariableIsNotAvailable() {
         EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(NO_SECONDARY_STORAGE_PATH);
 
         List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageApplicationPaths();
