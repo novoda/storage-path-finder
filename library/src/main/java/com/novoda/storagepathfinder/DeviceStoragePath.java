@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Wrapper around a string for a Storage path with a type.
  */
-class DeviceStoragePath implements StoragePath {
+final class DeviceStoragePath implements StoragePath {
 
     public static StoragePath create(String path, DeviceStoragePath.Type type) {
         return new DeviceStoragePath(path, type);

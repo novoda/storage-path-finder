@@ -3,7 +3,7 @@ package com.novoda.storagepathfinder;
 class ExternalDirectoryPrimaryStorageInspector implements PrimaryDeviceStorageInspector {
 
     private static final StoragePath.Type PRIMARY = StoragePath.Type.PRIMARY;
-    private CommonDirectories commonDirectories;
+    private final CommonDirectories commonDirectories;
 
     ExternalDirectoryPrimaryStorageInspector(CommonDirectories commonDirectories) {
         this.commonDirectories = commonDirectories;
