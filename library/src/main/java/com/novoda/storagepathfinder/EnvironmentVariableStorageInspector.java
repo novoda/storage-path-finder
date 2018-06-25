@@ -10,7 +10,7 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
 
     private static final StoragePath.Type SECONDARY = StoragePath.Type.SECONDARY;
     @Nullable
-    private String secondaryStoragePath;
+    private final String secondaryStoragePath;
 
     EnvironmentVariableStorageInspector(AndroidSystem system) {
         secondaryStoragePath = system.getEnv("SECONDARY_STORAGE");   // NOT ALL MANUFACTURERS SET THIS....  Also it can be null :(
@@ -27,7 +27,7 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
 
     @Override
     public List<StoragePath> getSecondaryDeviceStorageApplicationPaths() {
-        return Collections.emptyList();
+        return Collections.emptyList(); // There is no direct way to get the Application Path from the Environment Variable
     }
 
 }

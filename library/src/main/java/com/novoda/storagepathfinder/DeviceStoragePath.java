@@ -11,8 +11,7 @@ class DeviceStoragePath implements StoragePath {
         return new DeviceStoragePath(path, type);
     }
 
-    private String path;
-
+    private final String path;
     private final Type type;
 
     private DeviceStoragePath(String path, Type type) {

@@ -22,11 +22,10 @@ public class ExternalFileDirectoryInspectorTest {
     private Context context = mock(Context.class);
     private DeviceFeatures deviceFeatures = mock(DeviceFeatures.class);
 
-    ExternalFileDirectoryInspector inspector;
+    private ExternalFileDirectoryInspector inspector;
 
     @Before
     public void setUp() {
-
         inspector = new ExternalFileDirectoryInspector(context, deviceFeatures, PRIMARY_STORAGE_BASE_PATH);
     }
 
