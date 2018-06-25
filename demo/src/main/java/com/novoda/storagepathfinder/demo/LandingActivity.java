@@ -38,7 +38,7 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     private final StoragePathViewHolder.Listener onAddFileClicked = deviceStoragePath -> {
-        String pathToCloneTo = deviceStoragePath.getApplicationPath() + "/" + ASSET_NAME;
+        String pathToCloneTo = deviceStoragePath.asString() + "/" + ASSET_NAME;
         assetCloner.cloneAsset(ASSET_NAME, pathToCloneTo);
     };
 
