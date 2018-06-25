@@ -44,7 +44,7 @@ android {
     lintOptions {
         lintConfig teamPropsFile('static-analysis/lint-config.xml')
         abortOnError false
-        warningsAsErrors true
+        warningsAsErrors false
     }
 
     compileOptions {
