@@ -44,7 +44,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
                 ? checkExternalFileDirectoriesForRemovableStorage(Filter.APPLICATION) : Collections.emptyList();
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)    // NO LUCK API 16-18
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private List<StoragePath> checkExternalFileDirectoriesForRemovableStorage(Filter base) {
         File[] externalFileDirectories = filterOutNullValuesFrom(context.getExternalFilesDirs(null));
         List<StoragePath> storageRoots = new ArrayList<>();
