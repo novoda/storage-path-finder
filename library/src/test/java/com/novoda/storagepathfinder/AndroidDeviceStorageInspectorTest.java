@@ -25,12 +25,12 @@ public class AndroidDeviceStorageInspectorTest {
     private static final StoragePath SECONDARY_BASE_PATH_2 = DeviceStoragePath.create("/secondary-base-path-2", SECONDARY);
     private static final StoragePath SECONDARY_APPLICATION_PATH_1 = DeviceStoragePath.create("/secondary-application-path-1", SECONDARY);
 
-    private Context context = mock(Context.class);
-    private AndroidSystem androidSystem = mock(AndroidSystem.class);
-    private FileSystem filesystem = mock(FileSystem.class);
-    private DeviceFeatures devicesFeatures = mock(DeviceFeatures.class);
+    private final Context context = mock(Context.class);
+    private final AndroidSystem androidSystem = mock(AndroidSystem.class);
+    private final FileSystem filesystem = mock(FileSystem.class);
+    private final DeviceFeatures devicesFeatures = mock(DeviceFeatures.class);
 
-    private CommonDirectories commonDirectories = new CommonDirectories() {
+    private final CommonDirectories commonDirectories = new CommonDirectories() {
         @Override
         public File getExternalStorageDirectoryBasePath() {
             return PRIMARY_BASE_PATH.getPathAsFile();
