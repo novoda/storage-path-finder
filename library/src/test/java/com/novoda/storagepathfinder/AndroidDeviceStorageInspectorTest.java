@@ -53,21 +53,21 @@ public class AndroidDeviceStorageInspectorTest {
     }
 
     @Test
-    public void canGetThePrimaryStorageBasePath() {
+    public void returnsThePrimaryStorageBasePath() {
         StoragePath basePath = storageInspector.getPrimaryStorageBasePath();
 
         assertThat(basePath).isEqualTo(PRIMARY_BASE_PATH);
     }
 
     @Test
-    public void canGetThePrimaryStorageApplicationPath() {
+    public void returnsThePrimaryStorageApplicationPath() {
         StoragePath basePath = storageInspector.getPrimaryStorageApplicationPath();
 
         assertThat(basePath).isEqualTo(PRIMARY_APPLICATION_PATH);
     }
 
     @Test
-    public void canGetASecondaryStorageBasePathFromTheExternalDirectoryInspector() {
+    public void returnsASecondaryStorageBasePathFromTheExternalDirectoryInspector() {
         givenFileSystemHasPath(SECONDARY_BASE_PATH_1);
         givenDeviceCanReportExternalFileDirectories();
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_BASE_PATH_1);
@@ -79,7 +79,7 @@ public class AndroidDeviceStorageInspectorTest {
     }
 
     @Test
-    public void canGetASecondaryStorageApplicationPathFromTheExternalDirectoryInspector() {
+    public void returnsASecondaryStorageApplicationPathFromTheExternalDirectoryInspector() {
         givenDeviceCanReportExternalFileDirectories();
         givenFileSystemHasPath(SECONDARY_APPLICATION_PATH_1);
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_APPLICATION_PATH_1);
@@ -91,7 +91,7 @@ public class AndroidDeviceStorageInspectorTest {
     }
 
     @Test
-    public void canGetASecondaryStorageBasePathFromTheEnvironmentVariableInspector() {
+    public void returnsASecondaryStorageBasePathFromTheEnvironmentVariableInspector() {
         givenFileSystemHasPath(SECONDARY_BASE_PATH_1);
 
         List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePath();
@@ -110,7 +110,7 @@ public class AndroidDeviceStorageInspectorTest {
     }
 
     @Test
-    public void canHandleDevicesWithMultipleSecondaryStoragePaths() {
+    public void handlesDevicesWithMultipleSecondaryStoragePaths() {
         givenFileSystemHasPath(SECONDARY_BASE_PATH_1);
         givenFileSystemHasPath(SECONDARY_BASE_PATH_2);
 
