@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface SecondaryDeviceStorageInspector {
 
-    List<DeviceStorageRoot> getSecondaryDeviceStorageRoots();
+    List<StoragePath> getSecondaryDeviceStorageBasePaths();
 
+    List<StoragePath> getSecondaryDeviceStorageApplicationPaths();
 }

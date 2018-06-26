@@ -9,5 +9,5 @@ public interface FileSystem {
 
     boolean exists(File file);
 
-    CommonDirectories getCommonDirectories();
+    ExternalStorageDirectories getCommonDirectories();
 }

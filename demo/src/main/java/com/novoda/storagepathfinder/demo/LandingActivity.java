@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.novoda.storagepathfinder.AndroidDeviceStorageInspector;
-import com.novoda.storagepathfinder.DeviceStorageRoot;
+import com.novoda.storagepathfinder.StoragePath;
 
+import java.util.Collections;
 import java.util.List;
 
 public class LandingActivity extends AppCompatActivity {
@@ -23,21 +23,20 @@ public class LandingActivity extends AppCompatActivity {
 
         assetCloner = DemoDependenciesFactory.createAssetCloner(getApplicationContext());
 
-        AndroidDeviceStorageInspector storageInspector = DemoDependenciesFactory.createStorageInspector(getApplicationContext());
-        List<DeviceStorageRoot> deviceStorageRoots = storageInspector.getDeviceStorageRoots();
+        List<StoragePath> deviceStoragePaths = Collections.emptyList(); // TODO use the inspector :D
 
         RecyclerView recyclerView = findViewById(R.id.device_storage_roots);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        DeviceStorageRootsAdapter deviceStorageRootsAdapter = new DeviceStorageRootsAdapter(
+        StoragePathsAdapter storagePathsAdapter = new StoragePathsAdapter(
                 getLayoutInflater(),
-                deviceStorageRoots,
+                deviceStoragePaths,
                 onAddFileClicked
         );
-        recyclerView.setAdapter(deviceStorageRootsAdapter);
+        recyclerView.setAdapter(storagePathsAdapter);
     }
 
-    private final DeviceStorageRootViewHolder.Listener onAddFileClicked = deviceStorageRoot -> {
-        String pathToCloneTo = deviceStorageRoot.getAbsolutePath() + "/" + ASSET_NAME;
+    private final StoragePathViewHolder.Listener onAddFileClicked = deviceStoragePath -> {
+        String pathToCloneTo = deviceStoragePath.getPathAsString() + "/" + ASSET_NAME;
         assetCloner.cloneAsset(ASSET_NAME, pathToCloneTo);
     };
 

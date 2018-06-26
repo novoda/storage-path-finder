@@ -1,6 +1,5 @@
 package com.novoda.storagepathfinder;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -12,28 +11,43 @@ import static org.mockito.Mockito.mock;
 
 public class EnvironmentVariableStorageInspectorTest {
 
-    private static final String SECONDARY_STORAGE_PATH = "storage/MicroSD";
+    private static final StoragePath SECONDARY_STORAGE_PATH = DeviceStoragePath.create("storage/MicroSD", StoragePath.Type.SECONDARY);
     private static final String NO_SECONDARY_STORAGE_PATH = null;
 
     @Test
-    public void returnsSecondaryDeviceStorageRoots() {
-        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH);
+    public void returnsSecondaryDeviceStorageBasePaths_whenEnvironmentVariableIsAvailable() {
+        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.getPathAsString());
 
-        List<DeviceStorageRoot> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageRoots();
+        List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageBasePaths();
 
-        List<DeviceStorageRoot> expectedRoots = Collections.singletonList(
-                new DeviceStorageRoot(SECONDARY_STORAGE_PATH, SECONDARY_STORAGE_PATH, DeviceStorageRoot.Type.SECONDARY)
-        );
-        assertThat(secondaryDeviceStorageRoots).isEqualTo(expectedRoots);
+        assertThat(secondaryDeviceStorageRoots.contains(SECONDARY_STORAGE_PATH)).isTrue();
     }
 
     @Test
-    public void returnsNoSecondaryDeviceStorageRoots() {
+    public void returnsNoSecondaryDeviceStorageBasePaths_whenEnvironmentVariableIsNotAvailable() {
         EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(NO_SECONDARY_STORAGE_PATH);
 
-        List<DeviceStorageRoot> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageRoots();
+        List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageBasePaths();
 
-        assertThat(secondaryDeviceStorageRoots).isEmpty();
+        assertThat(secondaryDeviceStorageRoots.isEmpty()).isTrue();
+    }
+
+    @Test
+    public void returnsNoSecondaryStorageApplicationPaths_whenEnvironmentVariableIsAvailable() {
+        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(SECONDARY_STORAGE_PATH.getPathAsString());
+
+        List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageApplicationPaths();
+
+        assertThat(secondaryDeviceStorageRoots.isEmpty()).isTrue();
+    }
+
+    @Test
+    public void returnsNoSecondaryStorageApplicationPaths_whenEnvironmentVariableIsNotAvailable() {
+        EnvironmentVariableStorageInspector storageInspector = createEnvironmentStorageInspectorWithPath(NO_SECONDARY_STORAGE_PATH);
+
+        List<StoragePath> secondaryDeviceStorageRoots = storageInspector.getSecondaryDeviceStorageApplicationPaths();
+
+        assertThat(secondaryDeviceStorageRoots.isEmpty()).isTrue();
     }
 
     private static EnvironmentVariableStorageInspector createEnvironmentStorageInspectorWithPath(String storagePath) {

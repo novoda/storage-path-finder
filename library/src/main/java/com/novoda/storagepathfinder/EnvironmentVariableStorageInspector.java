@@ -3,10 +3,12 @@ package com.novoda.storagepathfinder;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EnvironmentVariableStorageInspector implements SecondaryDeviceStorageInspector {
 
+    private static final StoragePath.Type SECONDARY = StoragePath.Type.SECONDARY;
     @Nullable
     private final String secondaryStoragePath;
 
@@ -14,14 +16,18 @@ public class EnvironmentVariableStorageInspector implements SecondaryDeviceStora
         secondaryStoragePath = system.getEnv("SECONDARY_STORAGE");   // NOT ALL MANUFACTURERS SET THIS....  Also it can be null :(
     }
 
-    // TODO: Not sure what to do about this now that we have base and absolute path.
     @Override
-    public List<DeviceStorageRoot> getSecondaryDeviceStorageRoots() {
-        ArrayList<DeviceStorageRoot> secondaryStorageRoot = new ArrayList<>(1);
+    public List<StoragePath> getSecondaryDeviceStorageBasePaths() {
+        List<StoragePath> secondaryStorageRoot = new ArrayList<>(1);
         if (secondaryStoragePath != null) {
-            secondaryStorageRoot.add(new DeviceStorageRoot(secondaryStoragePath, secondaryStoragePath, DeviceStorageRoot.Type.SECONDARY));
+            secondaryStorageRoot.add(DeviceStoragePath.create(secondaryStoragePath, SECONDARY));
         }
         return secondaryStorageRoot;
+    }
+
+    @Override
+    public List<StoragePath> getSecondaryDeviceStorageApplicationPaths() {
+        return Collections.emptyList(); // There is no direct way to get the Application Path from the Environment Variable
     }
 
 }
