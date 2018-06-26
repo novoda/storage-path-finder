@@ -29,8 +29,8 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
             AndroidSystem androidSystem
     ) {
         this.fileSystem = fileSystem;
-        CommonDirectories commonDirectories = fileSystem.getCommonDirectories();
-        primaryStorageInspector = new ExternalDirectoryPrimaryStorageInspector(commonDirectories);
+        ExternalStorageDirectories externalStorageDirectories = fileSystem.getCommonDirectories();
+        primaryStorageInspector = new ExternalDirectoryPrimaryStorageInspector(externalStorageDirectories);
 
         StoragePath primaryBasePath = primaryStorageInspector.getPrimaryDeviceStorageBasePath();
         secondaryStorageInspectors.add(new EnvironmentVariableStorageInspector(androidSystem));

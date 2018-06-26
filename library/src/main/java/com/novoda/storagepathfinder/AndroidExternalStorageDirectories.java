@@ -12,11 +12,11 @@ import java.io.File;
  * <p>
  * Also interface is a must, as the `Enviroment.` static calls are not to be called in tests.
  */
-public class AndroidCommonDirectories implements CommonDirectories {
+public class AndroidExternalStorageDirectories implements ExternalStorageDirectories {
 
     private final Context context;
 
-    public AndroidCommonDirectories(Context context) {
+    public AndroidExternalStorageDirectories(Context context) {
         this.context = context;
     }
 

@@ -3,21 +3,21 @@ package com.novoda.storagepathfinder;
 class ExternalDirectoryPrimaryStorageInspector implements PrimaryDeviceStorageInspector {
 
     private static final StoragePath.Type PRIMARY = StoragePath.Type.PRIMARY;
-    private final CommonDirectories commonDirectories;
+    private final ExternalStorageDirectories externalStorageDirectories;
 
-    ExternalDirectoryPrimaryStorageInspector(CommonDirectories commonDirectories) {
-        this.commonDirectories = commonDirectories;
+    ExternalDirectoryPrimaryStorageInspector(ExternalStorageDirectories externalStorageDirectories) {
+        this.externalStorageDirectories = externalStorageDirectories;
     }
 
     @Override
     public StoragePath getPrimaryDeviceStorageBasePath() {
-        String path = commonDirectories.getExternalStorageDirectoryBasePath().getPath();
+        String path = externalStorageDirectories.getExternalStorageDirectoryBasePath().getPath();
         return DeviceStoragePath.create(path, PRIMARY);
     }
 
     @Override
     public StoragePath getPrimaryDeviceStorageApplicationPath() {
-        String path = commonDirectories.getExternalStorageDirectoryApplicationPath().getPath();
+        String path = externalStorageDirectories.getExternalStorageDirectoryApplicationPath().getPath();
         return DeviceStoragePath.create(path, PRIMARY);
     }
 }

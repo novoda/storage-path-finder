@@ -4,10 +4,10 @@ import java.io.File;
 
 public class AndroidFileSystem implements FileSystem {
 
-    private final CommonDirectories commonDirectories;
+    private final ExternalStorageDirectories externalStorageDirectories;
 
-    public AndroidFileSystem(CommonDirectories commonDirectories) {
-        this.commonDirectories = commonDirectories;
+    public AndroidFileSystem(ExternalStorageDirectories externalStorageDirectories) {
+        this.externalStorageDirectories = externalStorageDirectories;
     }
 
     @Override
@@ -16,7 +16,7 @@ public class AndroidFileSystem implements FileSystem {
     }
 
     @Override
-    public CommonDirectories getCommonDirectories() {
-        return commonDirectories;
+    public ExternalStorageDirectories getCommonDirectories() {
+        return externalStorageDirectories;
     }
 }

@@ -30,7 +30,7 @@ public class AndroidDeviceStorageInspectorTest {
     private final FileSystem filesystem = mock(FileSystem.class);
     private final DeviceFeatures devicesFeatures = mock(DeviceFeatures.class);
 
-    private final CommonDirectories commonDirectories = new CommonDirectories() {
+    private final ExternalStorageDirectories externalStorageDirectories = new ExternalStorageDirectories() {
         @Override
         public File getExternalStorageDirectoryBasePath() {
             return PRIMARY_BASE_PATH.getPathAsFile();
@@ -46,7 +46,7 @@ public class AndroidDeviceStorageInspectorTest {
 
     @Before
     public void setup() {
-        given(filesystem.getCommonDirectories()).willReturn(commonDirectories);
+        given(filesystem.getCommonDirectories()).willReturn(externalStorageDirectories);
         given(androidSystem.getEnv(anyString())).willReturn(SECONDARY_BASE_PATH_1.getPathAsString());
 
         storageInspector = new AndroidDeviceStorageInspector(context, filesystem, devicesFeatures, androidSystem);

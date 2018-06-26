@@ -2,7 +2,7 @@ package com.novoda.storagepathfinder;
 
 import java.io.File;
 
-public interface CommonDirectories {
+public interface ExternalStorageDirectories {
 
     File getExternalStorageDirectoryApplicationPath();
 
