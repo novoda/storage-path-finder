@@ -30,7 +30,7 @@ public class ExternalFileDirectoryInspectorTest {
     }
 
     @Test
-    public void canGetSecondaryStorageBasePathWhenFileDirectoriesAreAvailable() {
+    public void returnsSecondaryStorageBasePathWhenFileDirectoriesAreAvailable() {
         given(deviceFeatures.canReportExternalFileDirectories()).willReturn(true);
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_BATH_PATH_1);
 
@@ -41,7 +41,7 @@ public class ExternalFileDirectoryInspectorTest {
     }
 
     @Test
-    public void noSecondaryStorageBasePathsWhenFileDirectoriesAreNotAvailable() {
+    public void returnsNoSecondaryStorageBasePathsWhenFileDirectoriesAreNotAvailable() {
         given(deviceFeatures.canReportExternalFileDirectories()).willReturn(false);
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_BATH_PATH_1);
 
@@ -51,7 +51,7 @@ public class ExternalFileDirectoryInspectorTest {
     }
 
     @Test
-    public void canGetSecondaryStorageApplicationPathWhenFileDirectoriesAreAvailable() {
+    public void returnsSecondaryStorageApplicationPathWhenFileDirectoriesAreAvailable() {
         given(deviceFeatures.canReportExternalFileDirectories()).willReturn(true);
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_APPLICATION_PATH_1);
 
@@ -62,7 +62,7 @@ public class ExternalFileDirectoryInspectorTest {
     }
 
     @Test
-    public void noSecondaryStorageApplicationPathsWhenFileDirectoriesAreNotAvailable() {
+    public void returnsNoSecondaryStorageApplicationPathsWhenFileDirectoriesAreNotAvailable() {
         given(deviceFeatures.canReportExternalFileDirectories()).willReturn(false);
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_APPLICATION_PATH_1);
 

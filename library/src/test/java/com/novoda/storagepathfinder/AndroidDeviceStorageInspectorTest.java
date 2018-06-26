@@ -101,7 +101,7 @@ public class AndroidDeviceStorageInspectorTest {
     }
 
     @Test
-    public void noSecondaryStorageApplicationPathFromTheEnvironmentVariableInspector() {
+    public void returnsNoSecondaryStorageApplicationPathFromTheEnvironmentVariableInspector() {
         givenFileSystemHasPath(SECONDARY_APPLICATION_PATH_1);
 
         List<StoragePath> storagePaths = storageInspector.getSecondaryStorageApplicationPath();
