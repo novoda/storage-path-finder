@@ -26,7 +26,7 @@ public class LandingActivity extends AppCompatActivity {
 
         AndroidDeviceStorageInspector storageInspector = DemoDependenciesFactory.createStorageInspector(getApplicationContext());
 
-        List<StoragePath> deviceStoragePaths = new ArrayList<>(4);
+        List<StoragePath> deviceStoragePaths = new ArrayList<>();
 
         deviceStoragePaths.add(storageInspector.getPrimaryStorageBasePath());
         deviceStoragePaths.add(storageInspector.getPrimaryStorageApplicationPath());
