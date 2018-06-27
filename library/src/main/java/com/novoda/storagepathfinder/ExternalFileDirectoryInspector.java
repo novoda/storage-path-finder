@@ -89,9 +89,10 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
     }
 
     private boolean isValidPathForSecondaryStorage(String absolutePath, Filter base) {
+        String pathToCompare = absolutePath;
         if (base == Filter.APPLICATION) {
-            absolutePath = getDirectoryPathAboveTheAndroidFolderFrom(new File(absolutePath));
+            pathToCompare = getDirectoryPathAboveTheAndroidFolderFrom(new File(absolutePath));
         }
-        return !absolutePath.isEmpty() && !absolutePath.equals(primaryStoragePath);
+        return !pathToCompare.isEmpty() && !pathToCompare.equals(primaryStoragePath);
     }
 }
