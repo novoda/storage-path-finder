@@ -5,9 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.novoda.storagepathfinder.AndroidDeviceStorageInspector;
 import com.novoda.storagepathfinder.StoragePath;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LandingActivity extends AppCompatActivity {
@@ -23,7 +24,14 @@ public class LandingActivity extends AppCompatActivity {
 
         assetCloner = DemoDependenciesFactory.createAssetCloner(getApplicationContext());
 
-        List<StoragePath> deviceStoragePaths = Collections.emptyList(); // TODO use the inspector :D
+        AndroidDeviceStorageInspector storageInspector = DemoDependenciesFactory.createStorageInspector(getApplicationContext());
+
+        List<StoragePath> deviceStoragePaths = new ArrayList<>();
+
+        deviceStoragePaths.add(storageInspector.getPrimaryStorageBasePath());
+        deviceStoragePaths.add(storageInspector.getPrimaryStorageApplicationPath());
+        deviceStoragePaths.addAll(storageInspector.getSecondaryStorageBasePath());
+        deviceStoragePaths.addAll(storageInspector.getSecondaryStorageApplicationPath());
 
         RecyclerView recyclerView = findViewById(R.id.device_storage_roots);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -76,7 +76,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
             if (base.equals(Filter.APPLICATION)) {
                 path = file.getAbsolutePath();
             }
-            if (isValidPathForSecondaryStorage(path)) {
+            if (isValidPathForSecondaryStorage(path, base)) {
                 storageRoots.add(DeviceStoragePath.create(path, SECONDARY));
             }
         }
@@ -88,7 +88,11 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         return path == null ? "" : path;
     }
 
-    private boolean isValidPathForSecondaryStorage(String absolutePath) {
-        return !absolutePath.isEmpty() && !absolutePath.equals(primaryStoragePath);
+    private boolean isValidPathForSecondaryStorage(String absolutePath, Filter base) {
+        String pathToCompare = absolutePath;
+        if (base == Filter.APPLICATION) {
+            pathToCompare = getDirectoryPathAboveTheAndroidFolderFrom(new File(absolutePath));
+        }
+        return !pathToCompare.isEmpty() && !pathToCompare.equals(primaryStoragePath);
     }
 }
