@@ -19,7 +19,11 @@ internal class AssetCloner(private val assetManager: AssetManager, private val e
 
     private fun copyAssetToFile(assetName: String, outputFile: File) = try {
         assetManager.open(assetName)
-                .copyTo(FileOutputStream(outputFile, true))
+                .use { input ->
+                    FileOutputStream(outputFile, true).use { output ->
+                        input.copyTo(output)
+                    }
+                }
     } catch (e: IOException) {
         Log.e(javaClass.simpleName, "Failed to close streams.", e)
     }
