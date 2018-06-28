@@ -9,7 +9,7 @@ import java.util.*
 
 class LandingActivity : AppCompatActivity() {
 
-    private lateinit var assetCloner: AssetCloner;
+    private lateinit var assetCloner: AssetCloner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
