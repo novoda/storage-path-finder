@@ -2,28 +2,14 @@ package com.novoda.storagepathfinder.demo
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
-
 import com.novoda.storagepathfinder.StoragePath
+import kotlinx.android.synthetic.main.include_device_storage_root.view.*
 
-internal class StoragePathViewHolder(root: View) : RecyclerView.ViewHolder(root) {
+internal class StoragePathViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val absolutePath: TextView = root.findViewById(R.id.device_storage_root)
-    private val addFile: View = root.findViewById(R.id.add_file)
-
-    fun bind(item: StoragePath, listener: (StoragePath) -> Unit) = with(itemView) {
-        itemView
-        itemTitle.text = item.title
-        itemImage.loadUrl(item.url)
-        setOnClickListener { listener(item) }
-    }
-
-    fun bind(deviceStoragePath: StoragePath, listener: Listener) = with(root) {
-        
-        
-
-        absolutePath.text = deviceStoragePath.pathAsString
-        addFile.setOnClickListener { v -> listener.onAddFileClickedFor(deviceStoragePath) }
+    fun bind(item: StoragePath, listener: Listener) = with(itemView) {
+        itemView?.device_storage_root?.text = item.pathAsString;
+        itemView?.add_file?.setOnClickListener { listener.onAddFileClickedFor(item) }
     }
 
     internal interface Listener {
