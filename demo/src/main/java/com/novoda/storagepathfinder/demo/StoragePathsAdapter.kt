@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.novoda.storagepathfinder.StoragePath
 
+typealias Listener<T> = (T) -> Unit
+
 internal class StoragePathsAdapter(private val layoutInflater: LayoutInflater,
                                    private val deviceStoragePaths: List<StoragePath>,
-                                   private val onAddFileClicked: (StoragePath) -> Unit) : RecyclerView.Adapter<StoragePathViewHolder>() {
+                                   private val onAddFileClicked: Listener<StoragePath>) : RecyclerView.Adapter<StoragePathViewHolder>() {
 
     init {
         setHasStableIds(true)

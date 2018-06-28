@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.include_device_storage_root.view.*
 
 internal class StoragePathViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(item: StoragePath, listener: (StoragePath) -> Unit) = with(itemView) {
+    fun bind(item: StoragePath, listener: Listener<StoragePath>) = with(itemView) {
         itemView?.device_storage_root?.text = item.pathAsString
         itemView?.add_file?.setOnClickListener { listener.invoke(item) }
     }
