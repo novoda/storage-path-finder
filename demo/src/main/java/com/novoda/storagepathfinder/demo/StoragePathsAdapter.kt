@@ -15,20 +15,15 @@ internal class StoragePathsAdapter(private val layoutInflater: LayoutInflater,
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoragePathViewHolder {
-        return StoragePathViewHolder(layoutInflater.inflate(R.layout.item_device_storage_root, parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoragePathViewHolder =
+            StoragePathViewHolder(layoutInflater.inflate(R.layout.item_device_storage_root, parent, false))
 
     override fun onBindViewHolder(holder: StoragePathViewHolder, position: Int) {
         holder.bind(deviceStoragePaths[position], onAddFileClicked)
     }
 
-    override fun getItemCount(): Int {
-        return deviceStoragePaths.size
-    }
+    override fun getItemCount(): Int = deviceStoragePaths.size
 
-    override fun getItemId(position: Int): Long {
-        return deviceStoragePaths[position].hashCode().toLong();
-    }
+    override fun getItemId(position: Int): Long = deviceStoragePaths[position].hashCode().toLong()
 
 }
