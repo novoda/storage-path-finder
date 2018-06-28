@@ -11,9 +11,9 @@ internal class AssetCloner(private val assetManager: AssetManager, private val e
 
     fun cloneAsset(assetName: String, pathToCloneTo: String) {
         executor.execute {
-            File(pathToCloneTo).also {
-                it.parentFile?.takeIf { !it.exists() }?.also { it.mkdirs() }
-            }.also { copyAssetToFile(assetName, it) }
+            File(pathToCloneTo)
+                    .also { it.parentFile?.takeIf { !it.exists() }?.also { it.mkdirs() } }
+                    .also { copyAssetToFile(assetName, it) }
         }
     }
 
