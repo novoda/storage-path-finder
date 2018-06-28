@@ -9,7 +9,7 @@ import java.util.*
 
 class LandingActivity : AppCompatActivity() {
 
-    private var assetCloner: AssetCloner? = null
+    private lateinit var assetCloner: AssetCloner;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class LandingActivity : AppCompatActivity() {
 
     private val onAddFileClicked: (StoragePath) -> Unit = { deviceStoragePath ->
         val pathToCloneTo = deviceStoragePath.pathAsString + "/" + ASSET_NAME
-        assetCloner?.cloneAsset(ASSET_NAME, pathToCloneTo)
+        assetCloner.cloneAsset(ASSET_NAME, pathToCloneTo)
     }
 
     companion object {
