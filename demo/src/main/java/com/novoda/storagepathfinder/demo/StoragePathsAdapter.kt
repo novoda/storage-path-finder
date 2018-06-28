@@ -7,7 +7,7 @@ import com.novoda.storagepathfinder.StoragePath
 
 internal class StoragePathsAdapter(private val layoutInflater: LayoutInflater,
                                    private val deviceStoragePaths: List<StoragePath>,
-                                   private val onAddFileClicked: StoragePathViewHolder.Listener) : RecyclerView.Adapter<StoragePathViewHolder>() {
+                                   private val onAddFileClicked: (StoragePath) -> Unit) : RecyclerView.Adapter<StoragePathViewHolder>() {
 
     init {
         setHasStableIds(true)
@@ -28,4 +28,5 @@ internal class StoragePathsAdapter(private val layoutInflater: LayoutInflater,
     override fun getItemId(position: Int): Long {
         return deviceStoragePaths[position].hashCode().toLong();
     }
+
 }

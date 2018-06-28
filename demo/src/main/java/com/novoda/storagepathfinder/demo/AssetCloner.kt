@@ -23,4 +23,5 @@ internal class AssetCloner(private val assetManager: AssetManager, private val e
     } catch (e: IOException) {
         Log.e(javaClass.simpleName, "Failed to close streams.", e)
     }
+
 }
