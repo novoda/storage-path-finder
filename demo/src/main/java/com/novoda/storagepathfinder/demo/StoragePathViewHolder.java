@@ -96,15 +96,19 @@ class StoragePathViewHolder extends RecyclerView.ViewHolder {
 
     private String getSizeOf(StoragePath deviceStoragePath) {
         File pathAsFile = deviceStoragePath.getPathAsFile();
-
         long sizeOfDirectory = FileUtils.sizeOfDirectory(pathAsFile);
-        if (blockSizeCalculationsAreAvailable()) {
-            if (deviceStoragePath.getType() == PRIMARY && sizeOfDirectory == 0) {
-                sizeOfDirectory = getUsedSizeOf(deviceStoragePath);
-            }
+        if (sizeOfDirectory == 0 && deviceStoragePath.getType() == PRIMARY) {
+            sizeOfDirectory = getSizeFromBlockCalculations(deviceStoragePath);
         }
-
         return byteCountToDisplaySize(sizeOfDirectory);
+    }
+
+    private long getSizeFromBlockCalculations(StoragePath deviceStoragePath) {
+        if (blockSizeCalculationsAreAvailable()) {
+            return getUsedSizeOf(deviceStoragePath);
+        } else {
+            return 0;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
