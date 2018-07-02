@@ -128,7 +128,7 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
             );
         }
 
-        Builder(Context context, FileSystem fileSystem, DeviceFeatures deviceFeatures, AndroidSystem androidSystem) {
+        private Builder(Context context, FileSystem fileSystem, DeviceFeatures deviceFeatures, AndroidSystem androidSystem) {
             this.context = context;
             this.fileSystem = fileSystem;
             this.deviceFeatures = deviceFeatures;
