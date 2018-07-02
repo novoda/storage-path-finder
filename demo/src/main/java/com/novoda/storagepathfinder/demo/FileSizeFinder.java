@@ -15,7 +15,7 @@ final class FileSizeFinder {
     }
 
     /**
-     * Counts the size of a directory recursively (sum of the length of all files).
+     * Calculates the size of a directory recursively (sum of the length of all files).
      *
      * @param directory directory to inspect, must not be {@code null}
      * @return size of directory in bytes, 0 if directory is security restricted, a negative number when the real total
