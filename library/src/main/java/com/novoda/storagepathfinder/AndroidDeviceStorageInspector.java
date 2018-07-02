@@ -23,10 +23,10 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
     private final FileSystem fileSystem;
 
     public AndroidDeviceStorageInspector(
-            Context context,
-            FileSystem fileSystem,
-            DeviceFeatures deviceFeatures,
-            AndroidSystem androidSystem
+        Context context,
+        FileSystem fileSystem,
+        DeviceFeatures deviceFeatures,
+        AndroidSystem androidSystem
     ) {
         this.fileSystem = fileSystem;
         ExternalStorageDirectories externalStorageDirectories = fileSystem.getCommonDirectories();
@@ -101,5 +101,62 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
             }
             return lhs.hashCode() - rhs.hashCode();
         };
+    }
+
+    public static Builder builder(Context context) {
+        return Builder.newInstance(context);
+    }
+
+    public static class Builder {
+
+        private Context context;
+        private FileSystem fileSystem;
+        private DeviceFeatures deviceFeatures;
+        private AndroidSystem androidSystem;
+
+        private static Builder newInstance(Context context) {
+            Context applicationContext = context.getApplicationContext();
+            ExternalStorageDirectories externalStorageDirectories = new AndroidExternalStorageDirectories(applicationContext);
+            FileSystem fileSystem = new AndroidFileSystem(externalStorageDirectories);
+            DeviceFeatures deviceFeatures = new AndroidDeviceFeatures();
+            AndroidSystem androidSystem = new AndroidSystem();
+            return new Builder(
+                applicationContext,
+                fileSystem,
+                deviceFeatures,
+                androidSystem
+            );
+        }
+
+        Builder(Context context, FileSystem fileSystem, DeviceFeatures deviceFeatures, AndroidSystem androidSystem) {
+            this.context = context;
+            this.fileSystem = fileSystem;
+            this.deviceFeatures = deviceFeatures;
+            this.androidSystem = androidSystem;
+        }
+
+        public Builder withFileSystem(FileSystem fileSystem) {
+            this.fileSystem = fileSystem;
+            return this;
+        }
+
+        public Builder withDeviceFeatures(DeviceFeatures deviceFeatures) {
+            this.deviceFeatures = deviceFeatures;
+            return this;
+        }
+
+        public Builder withAndroidSystem(AndroidSystem androidSystem) {
+            this.androidSystem = androidSystem;
+            return this;
+        }
+
+        public AndroidDeviceStorageInspector build() {
+            return new AndroidDeviceStorageInspector(
+                context,
+                fileSystem,
+                deviceFeatures,
+                androidSystem
+            );
+        }
     }
 }
