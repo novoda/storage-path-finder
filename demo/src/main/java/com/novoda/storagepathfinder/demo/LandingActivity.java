@@ -24,7 +24,7 @@ public class LandingActivity extends AppCompatActivity {
 
         assetCloner = DemoDependenciesFactory.createAssetCloner(getApplicationContext());
 
-        AndroidDeviceStorageInspector storageInspector = DemoDependenciesFactory.createStorageInspector(getApplicationContext());
+        AndroidDeviceStorageInspector storageInspector = AndroidDeviceStorageInspector.builder(this).build();
 
         List<StoragePath> deviceStoragePaths = new ArrayList<>();
 
