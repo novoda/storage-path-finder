@@ -31,7 +31,7 @@ final class FileSizeFinder {
 
         long size = 0;
 
-        for (final File file : files) {
+        for (File file : files) {
             try {
                 if (!FileUtils.isSymlink(file)) {
                     size += sizeOf(file);
