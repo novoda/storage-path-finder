@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils;
 final class FileSizeFinder {
 
     private FileSizeFinder() {
-        // Uses static factory methods.
+        // Uses static utility methods.
     }
 
     /**
