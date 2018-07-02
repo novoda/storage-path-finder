@@ -107,9 +107,9 @@ public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
         return Builder.newInstance(context);
     }
 
-    public static class Builder {
+    public static final class Builder {
 
-        private Context context;
+        private final Context context;
         private FileSystem fileSystem;
         private DeviceFeatures deviceFeatures;
         private AndroidSystem androidSystem;
