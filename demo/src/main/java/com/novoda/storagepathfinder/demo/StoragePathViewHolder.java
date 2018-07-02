@@ -12,8 +12,6 @@ import com.novoda.storagepathfinder.StoragePath;
 
 import java.io.File;
 
-import org.apache.commons.io.FileUtils;
-
 import static android.os.Build.VERSION.SDK_INT;
 import static com.novoda.storagepathfinder.StoragePath.Type.PRIMARY;
 import static com.novoda.storagepathfinder.StoragePath.Type.SECONDARY;
@@ -96,7 +94,7 @@ class StoragePathViewHolder extends RecyclerView.ViewHolder {
 
     private String getSizeOf(StoragePath deviceStoragePath) {
         File pathAsFile = deviceStoragePath.getPathAsFile();
-        long sizeOfDirectory = FileUtils.sizeOfDirectory(pathAsFile);
+        long sizeOfDirectory = FileSizeFinder.sizeOfDirectory(pathAsFile);
         if (sizeOfDirectory == 0 && deviceStoragePath.getType() == PRIMARY) {
             sizeOfDirectory = getSizeFromBlockCalculations(deviceStoragePath);
         }
