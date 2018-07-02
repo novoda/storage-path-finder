@@ -10,19 +10,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-/**
- * The inspector that can give all storage roots. both Primary and Secondary. (Internal External and External External)
- * Lots of sanitisation has to go on in these for null checks / empty lists etc.
- * <p>
- * Not it uses a set of secondary storage inspectors to find it in anyway it can.
- */
-public class AndroidDeviceStorageInspector implements DeviceStorageInspector {
+class AndroidDeviceStorageInspector implements DeviceStorageInspector {
 
     private final PrimaryDeviceStorageInspector primaryStorageInspector;
     private final List<SecondaryDeviceStorageInspector> secondaryStorageInspectors = new ArrayList<>();
     private final FileSystem fileSystem;
 
-    public AndroidDeviceStorageInspector(
+    AndroidDeviceStorageInspector(
             Context context,
             FileSystem fileSystem,
             DeviceFeatures deviceFeatures,

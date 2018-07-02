@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.novoda.storagepathfinder.AndroidDeviceStorageInspector;
+import com.novoda.storagepathfinder.DeviceStorageInspector;
 import com.novoda.storagepathfinder.StoragePath;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class LandingActivity extends AppCompatActivity {
 
         assetCloner = DemoDependenciesFactory.createAssetCloner(getApplicationContext());
 
-        AndroidDeviceStorageInspector storageInspector = DemoDependenciesFactory.createStorageInspector(getApplicationContext());
+        DeviceStorageInspector storageInspector = DeviceStorageInspector.builder(this).build();
 
         List<StoragePath> deviceStoragePaths = new ArrayList<>();
 
