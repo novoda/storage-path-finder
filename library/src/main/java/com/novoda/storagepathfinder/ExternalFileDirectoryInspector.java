@@ -47,9 +47,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private List<StoragePath> checkExternalFileDirectoriesForRemovableStorage(Filter base) {
         File[] externalFileDirectories = filterOutNullValuesFrom(context.getExternalFilesDirs(null));
-        List<StoragePath> storageRoots = new ArrayList<>();
-        storageRoots.addAll(extractSecondaryStorageRootsFrom(base, externalFileDirectories));
-        return storageRoots;
+        return new ArrayList<>(extractSecondaryStorageRootsFrom(base, externalFileDirectories));
     }
 
     private File[] filterOutNullValuesFrom(File... externalFilesDirs) {  // YES They return a list with null values in it...
