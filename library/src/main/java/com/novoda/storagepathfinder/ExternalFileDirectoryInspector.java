@@ -3,8 +3,10 @@ package com.novoda.storagepathfinder;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +18,7 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
 
     private static final StoragePath.Type SECONDARY = StoragePath.Type.SECONDARY;
     private static final String ANDROID_PATTERN = "/(Android)";
+    private static final String EMPTY_PATH = "";
 
     public enum Filter {   // TODO kill this soon
         APPLICATION,
@@ -67,13 +70,8 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         List<StoragePath> storageRoots = new ArrayList<>();
         for (File file : fileDirectories) {
             // TODO I don't want this Filter.TYPE thing, but its the fastest way to split the logic for now. More refactoring later
-            String path = "";
-            if (base.equals(Filter.BASE)) {
-                path = getDirectoryPathAboveTheAndroidFolderFrom(file);
-            }
-            if (base.equals(Filter.APPLICATION)) {
-                path = file.getAbsolutePath();
-            }
+            String path = pathFromFilter(base, file);
+
             if (isValidPathForSecondaryStorage(path, base)) {
                 storageRoots.add(DeviceStoragePath.create(path, SECONDARY));
             }
@@ -81,9 +79,33 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         return storageRoots;
     }
 
+    private String pathFromFilter(Filter base, File file) {
+        if (base.equals(Filter.BASE)) {
+            return getDirectoryPathAboveTheAndroidFolderFrom(file);
+        }
+        if (base.equals(Filter.APPLICATION)) {
+            return getApplicationPath(file);
+        }
+        return EMPTY_PATH;
+    }
+
     private String getDirectoryPathAboveTheAndroidFolderFrom(File file) {
-        String path = file.getAbsolutePath().split(ANDROID_PATTERN)[0];
+        String path = null;
+        try {
+            path = file.getCanonicalPath().split(ANDROID_PATTERN)[0];
+        } catch (IOException e) {
+            Log.e(getClass().getSimpleName(), "Could not find directory path above android folder", e);
+        }
         return path == null ? "" : path;
+    }
+
+    private String getApplicationPath(File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            Log.e(getClass().getSimpleName(), "Could not find application path.", e);
+        }
+        return EMPTY_PATH;
     }
 
     private boolean isValidPathForSecondaryStorage(String absolutePath, Filter base) {
