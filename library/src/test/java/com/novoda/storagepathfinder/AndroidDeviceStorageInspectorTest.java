@@ -56,7 +56,7 @@ public class AndroidDeviceStorageInspectorTest {
     public void returnsThePrimaryStorageBasePath() {
         List<StoragePath> storagePaths = storageInspector.getPrimaryStorageBasePaths();
 
-        assertThat(storagePaths.size()) .isEqualTo(1);
+        assertThat(storagePaths.size()).isEqualTo(1);
         assertThat(storagePaths.get(0)).isEqualTo(PRIMARY_BASE_PATH);
     }
 
