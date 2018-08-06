@@ -54,16 +54,18 @@ public class AndroidDeviceStorageInspectorTest {
 
     @Test
     public void returnsThePrimaryStorageBasePath() {
-        StoragePath basePath = storageInspector.getPrimaryStorageBasePath();
+        List<StoragePath> storagePaths = storageInspector.getPrimaryStorageBasePaths();
 
-        assertThat(basePath).isEqualTo(PRIMARY_BASE_PATH);
+        assertThat(storagePaths.size()).isEqualTo(1);
+        assertThat(storagePaths.get(0)).isEqualTo(PRIMARY_BASE_PATH);
     }
 
     @Test
     public void returnsThePrimaryStorageApplicationPath() {
-        StoragePath basePath = storageInspector.getPrimaryStorageApplicationPath();
+        List<StoragePath> storagePaths = storageInspector.getPrimaryStorageApplicationPaths();
 
-        assertThat(basePath).isEqualTo(PRIMARY_APPLICATION_PATH);
+        assertThat(storagePaths.size()).isEqualTo(1);
+        assertThat(storagePaths.get(0)).isEqualTo(PRIMARY_APPLICATION_PATH);
     }
 
     @Test
@@ -72,7 +74,7 @@ public class AndroidDeviceStorageInspectorTest {
         givenDeviceCanReportExternalFileDirectories();
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_BASE_PATH_1);
 
-        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePath();
+        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePaths();
 
         assertThat(storagePaths.size()).isEqualTo(1);
         assertThat(storagePaths.get(0)).isEqualTo(SECONDARY_BASE_PATH_1);
@@ -84,7 +86,7 @@ public class AndroidDeviceStorageInspectorTest {
         givenFileSystemHasPath(SECONDARY_APPLICATION_PATH_1);
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_APPLICATION_PATH_1);
 
-        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageApplicationPath();
+        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageApplicationPaths();
 
         assertThat(storagePaths.size()).isEqualTo(1);
         assertThat(storagePaths.get(0)).isEqualTo(SECONDARY_APPLICATION_PATH_1);
@@ -94,7 +96,7 @@ public class AndroidDeviceStorageInspectorTest {
     public void returnsASecondaryStorageBasePathFromTheEnvironmentVariableInspector() {
         givenFileSystemHasPath(SECONDARY_BASE_PATH_1);
 
-        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePath();
+        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePaths();
 
         assertThat(storagePaths.size()).isEqualTo(1);
         assertThat(storagePaths.get(0)).isEqualTo(SECONDARY_BASE_PATH_1);
@@ -104,7 +106,7 @@ public class AndroidDeviceStorageInspectorTest {
     public void returnsNoSecondaryStorageApplicationPathFromTheEnvironmentVariableInspector() {
         givenFileSystemHasPath(SECONDARY_APPLICATION_PATH_1);
 
-        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageApplicationPath();
+        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageApplicationPaths();
 
         assertThat(storagePaths.size()).isEqualTo(0);
     }
@@ -117,7 +119,7 @@ public class AndroidDeviceStorageInspectorTest {
         givenDeviceCanReportExternalFileDirectories();
         givenExternalFileDirectoriesWillReturnPaths(SECONDARY_BASE_PATH_1, SECONDARY_BASE_PATH_2);
 
-        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePath();
+        List<StoragePath> storagePaths = storageInspector.getSecondaryStorageBasePaths();
 
         assertThat(storagePaths.size()).isEqualTo(2);
         assertThat(storagePaths.contains(SECONDARY_BASE_PATH_1)).isEqualTo(true);
