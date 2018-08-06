@@ -28,10 +28,10 @@ public class LandingActivity extends AppCompatActivity {
 
         List<StoragePath> deviceStoragePaths = new ArrayList<>();
 
-        deviceStoragePaths.addAll(storageInspector.getPrimaryStorageBasePath());
-        deviceStoragePaths.addAll(storageInspector.getPrimaryStorageApplicationPath());
-        deviceStoragePaths.addAll(storageInspector.getSecondaryStorageBasePath());
-        deviceStoragePaths.addAll(storageInspector.getSecondaryStorageApplicationPath());
+        deviceStoragePaths.addAll(storageInspector.getPrimaryStorageBasePaths());
+        deviceStoragePaths.addAll(storageInspector.getPrimaryStorageApplicationPaths());
+        deviceStoragePaths.addAll(storageInspector.getSecondaryStorageBasePaths());
+        deviceStoragePaths.addAll(storageInspector.getSecondaryStorageApplicationPaths());
 
         RecyclerView recyclerView = findViewById(R.id.device_storage_roots);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -32,24 +32,24 @@ class AndroidDeviceStorageInspector implements DeviceStorageInspector {
     }
 
     @Override
-    public List<StoragePath> getPrimaryStorageBasePath() {
+    public List<StoragePath> getPrimaryStorageBasePaths() {
         return primaryStorageInspector.getPrimaryDeviceStorageBasePath();
 
     }
 
     @Override
-    public List<StoragePath> getPrimaryStorageApplicationPath() {
+    public List<StoragePath> getPrimaryStorageApplicationPaths() {
         return primaryStorageInspector.getPrimaryDeviceStorageApplicationPath();
     }
 
     @Override
-    public List<StoragePath> getSecondaryStorageBasePath() {
+    public List<StoragePath> getSecondaryStorageBasePaths() {
         List<StoragePath> storageRoots = new ArrayList<>(findActiveSecondaryStorageBasePaths());
         return Collections.unmodifiableList(storageRoots);
     }
 
     @Override
-    public List<StoragePath> getSecondaryStorageApplicationPath() {
+    public List<StoragePath> getSecondaryStorageApplicationPaths() {
         List<StoragePath> storageRoots = new ArrayList<>(findActiveSecondaryStorageApplicationPaths());
         return Collections.unmodifiableList(storageRoots);
     }

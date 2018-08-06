@@ -16,25 +16,25 @@ public interface DeviceStorageInspector {
      * The system storage path of your primary storage.
      * (this is most likely built in phone storage)
      */
-    List<StoragePath> getPrimaryStorageBasePath();
+    List<StoragePath> getPrimaryStorageBasePaths();
 
     /**
      * The system storage path of your secondary storage.
      * (this is most likely your SD Card)
      */
-    List<StoragePath> getSecondaryStorageBasePath();
+    List<StoragePath> getSecondaryStorageBasePaths();
 
     /**
      * The application storage path of your primary storage.
      * (this is most likely built in phone storage)
      */
-    List<StoragePath> getPrimaryStorageApplicationPath();
+    List<StoragePath> getPrimaryStorageApplicationPaths();
 
     /**
      * The application storage path of your secondary storage.
      * (this is most likely your SD Card)
      */
-    List<StoragePath> getSecondaryStorageApplicationPath();
+    List<StoragePath> getSecondaryStorageApplicationPaths();
 
     static DeviceStorageInspectorBuilder builder(Context context) {
         return DeviceStorageInspectorBuilder.newInstance(context);
