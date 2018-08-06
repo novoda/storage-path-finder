@@ -3,6 +3,7 @@ package com.novoda.storagepathfinder;
 import android.content.Context;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -15,8 +16,7 @@ import static org.mockito.Mockito.mock;
 
 public class ExternalFileDirectoryInspectorTest {
 
-    private static final String PRIMARY_STORAGE_BASE_PATH_STRING = "/primary-storage-base-path";
-    private static final StoragePath PRIMARY_STORAGE_BASE_PATH = DeviceStoragePath.create(PRIMARY_STORAGE_BASE_PATH_STRING, PRIMARY);
+    private static final StoragePath PRIMARY_STORAGE_BASE_PATH = DeviceStoragePath.create("/primary-storage-base-path", PRIMARY);
     private static final StoragePath.Type SECONDARY = StoragePath.Type.SECONDARY;
     private static final StoragePath SECONDARY_BATH_PATH_1 = DeviceStoragePath.create("secondary-base-path-1", SECONDARY);
     private static final StoragePath SECONDARY_APPLICATION_PATH_1 = DeviceStoragePath.create("secondary-appplication-path-1", SECONDARY);
@@ -28,7 +28,8 @@ public class ExternalFileDirectoryInspectorTest {
 
     @Before
     public void setUp() {
-        inspector = new ExternalFileDirectoryInspector(context, deviceFeatures, PRIMARY_STORAGE_BASE_PATH_STRING);
+        List<StoragePath> primaryStoragePaths = Collections.singletonList(PRIMARY_STORAGE_BASE_PATH);
+        inspector = new ExternalFileDirectoryInspector(context, deviceFeatures, primaryStoragePaths);
     }
 
     @Test

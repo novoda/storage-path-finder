@@ -2,6 +2,7 @@ package com.novoda.storagepathfinder;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public class AndroidExternalStorageDirectories implements ExternalStorageDirecto
         this.context = context;
     }
 
+    @Nullable
     @Override
     public File getExternalStorageDirectoryApplicationPath() {
         return ContextCompat.getExternalFilesDirs(context, null)[0];

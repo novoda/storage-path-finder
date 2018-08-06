@@ -28,8 +28,8 @@ public class LandingActivity extends AppCompatActivity {
 
         List<StoragePath> deviceStoragePaths = new ArrayList<>();
 
-        deviceStoragePaths.add(storageInspector.getPrimaryStorageBasePath());
-        deviceStoragePaths.add(storageInspector.getPrimaryStorageApplicationPath());
+        deviceStoragePaths.addAll(storageInspector.getPrimaryStorageBasePath());
+        deviceStoragePaths.addAll(storageInspector.getPrimaryStorageApplicationPath());
         deviceStoragePaths.addAll(storageInspector.getSecondaryStorageBasePath());
         deviceStoragePaths.addAll(storageInspector.getSecondaryStorageApplicationPath());
 

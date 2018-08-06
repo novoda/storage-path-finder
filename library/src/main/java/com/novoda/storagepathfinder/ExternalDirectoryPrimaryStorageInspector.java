@@ -1,5 +1,9 @@
 package com.novoda.storagepathfinder;
 
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
+
 class ExternalDirectoryPrimaryStorageInspector implements PrimaryDeviceStorageInspector {
 
     private static final StoragePath.Type PRIMARY = StoragePath.Type.PRIMARY;
@@ -10,14 +14,24 @@ class ExternalDirectoryPrimaryStorageInspector implements PrimaryDeviceStorageIn
     }
 
     @Override
-    public StoragePath getPrimaryDeviceStorageBasePath() {
-        String path = externalStorageDirectories.getExternalStorageDirectoryBasePath().getPath();
-        return DeviceStoragePath.create(path, PRIMARY);
+    public List<StoragePath> getPrimaryDeviceStorageBasePath() {
+        File externalStorageDirectoryBasePath = externalStorageDirectories.getExternalStorageDirectoryBasePath();
+        if (externalStorageDirectoryBasePath == null) {
+            return Collections.emptyList();
+        }
+
+        StoragePath storagePath = DeviceStoragePath.create(externalStorageDirectoryBasePath.getPath(), PRIMARY);
+        return Collections.singletonList(storagePath);
     }
 
     @Override
-    public StoragePath getPrimaryDeviceStorageApplicationPath() {
-        String path = externalStorageDirectories.getExternalStorageDirectoryApplicationPath().getPath();
-        return DeviceStoragePath.create(path, PRIMARY);
+    public List<StoragePath> getPrimaryDeviceStorageApplicationPath() {
+        File externalStorageDirectoryApplicationPath = externalStorageDirectories.getExternalStorageDirectoryApplicationPath();
+        if (externalStorageDirectoryApplicationPath == null) {
+            return Collections.emptyList();
+        }
+
+        StoragePath storagePath = DeviceStoragePath.create(externalStorageDirectoryApplicationPath.getPath(), PRIMARY);
+        return Collections.singletonList(storagePath);
     }
 }

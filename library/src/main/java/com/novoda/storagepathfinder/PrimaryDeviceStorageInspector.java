@@ -1,8 +1,10 @@
 package com.novoda.storagepathfinder;
 
+import java.util.List;
+
 interface PrimaryDeviceStorageInspector {
 
-    StoragePath getPrimaryDeviceStorageBasePath();
+    List<StoragePath> getPrimaryDeviceStorageBasePath();
 
-    StoragePath getPrimaryDeviceStorageApplicationPath();
+    List<StoragePath> getPrimaryDeviceStorageApplicationPath();
 }

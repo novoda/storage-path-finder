@@ -24,12 +24,12 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
 
     private final Context context;
     private final DeviceFeatures deviceFeatures;
-    private final String primaryStoragePath;
+    private final List<StoragePath> primaryStoragePaths;
 
-    ExternalFileDirectoryInspector(Context context, DeviceFeatures deviceFeatures, String primaryStoragePath) {
+    ExternalFileDirectoryInspector(Context context, DeviceFeatures deviceFeatures, List<StoragePath> primaryStoragePaths) {
         this.context = context;
         this.deviceFeatures = deviceFeatures;
-        this.primaryStoragePath = primaryStoragePath;
+        this.primaryStoragePaths = primaryStoragePaths;
     }
 
     @Override
@@ -93,6 +93,15 @@ public class ExternalFileDirectoryInspector implements SecondaryDeviceStorageIns
         if (base == Filter.APPLICATION) {
             pathToCompare = getDirectoryPathAboveTheAndroidFolderFrom(new File(absolutePath));
         }
-        return !pathToCompare.isEmpty() && !pathToCompare.equals(primaryStoragePath);
+        return !pathToCompare.isEmpty() && !isSameAsPrimaryStoragePath(pathToCompare);
+    }
+
+    private boolean isSameAsPrimaryStoragePath(String pathToCompare) {
+        for (StoragePath primaryStoragePath : primaryStoragePaths) {
+            if (pathToCompare.equals(primaryStoragePath.getPathAsString())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

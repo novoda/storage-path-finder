@@ -54,16 +54,18 @@ public class AndroidDeviceStorageInspectorTest {
 
     @Test
     public void returnsThePrimaryStorageBasePath() {
-        StoragePath basePath = storageInspector.getPrimaryStorageBasePath();
+        List<StoragePath> storagePaths = storageInspector.getPrimaryStorageBasePath();
 
-        assertThat(basePath).isEqualTo(PRIMARY_BASE_PATH);
+        assertThat(storagePaths.size()) .isEqualTo(1);
+        assertThat(storagePaths.get(0)).isEqualTo(PRIMARY_BASE_PATH);
     }
 
     @Test
     public void returnsThePrimaryStorageApplicationPath() {
-        StoragePath basePath = storageInspector.getPrimaryStorageApplicationPath();
+        List<StoragePath> storagePaths = storageInspector.getPrimaryStorageApplicationPath();
 
-        assertThat(basePath).isEqualTo(PRIMARY_APPLICATION_PATH);
+        assertThat(storagePaths.size()).isEqualTo(1);
+        assertThat(storagePaths.get(0)).isEqualTo(PRIMARY_APPLICATION_PATH);
     }
 
     @Test

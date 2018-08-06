@@ -16,7 +16,7 @@ public interface DeviceStorageInspector {
      * The system storage path of your primary storage.
      * (this is most likely built in phone storage)
      */
-    StoragePath getPrimaryStorageBasePath();
+    List<StoragePath> getPrimaryStorageBasePath();
 
     /**
      * The system storage path of your secondary storage.
@@ -28,7 +28,7 @@ public interface DeviceStorageInspector {
      * The application storage path of your primary storage.
      * (this is most likely built in phone storage)
      */
-    StoragePath getPrimaryStorageApplicationPath();
+    List<StoragePath> getPrimaryStorageApplicationPath();
 
     /**
      * The application storage path of your secondary storage.
